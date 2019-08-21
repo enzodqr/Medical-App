@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Medical</string>
+    <string name="usuario_text">Usuario</string>
+    <string name="contraseña_text">Contraseña</string>
+    <string name="ingresar_text">Ingresar</string>
+    <string name="registrarme_text">Registrarme</string>
+    <string name="app_title">Medical+</string>
 </resources>
