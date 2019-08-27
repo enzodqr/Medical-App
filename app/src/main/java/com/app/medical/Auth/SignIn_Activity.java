@@ -40,14 +40,6 @@ public class SignIn_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        signIn_btn = findViewById(R.id.signIn_btn);
-        signIn_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
-            }
-        });
-
         options_list = new ArrayList<>();
 
         // Array of the signIn providers
@@ -66,29 +58,6 @@ public class SignIn_Activity extends AppCompatActivity {
         } else {
             show_signIn_options();
         }
-
-
-
-        // Test
-        sign_out_btn = findViewById(R.id.btn_registro);
-        sign_out_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthUI.getInstance().signOut(SignIn_Activity.this).
-                        addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                sign_out_btn.setEnabled(false);
-                                show_signIn_options();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignIn_Activity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
     }
 

@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Profile.Profile_Activity"></activity>
-        <activity android:name=".Menu.Menu_Activity" />
-        <activity android:name=".Auth.SignIn_Activity">
+        <activity android:name=".Menu.Menu_Activity">
+        </activity>
+        <activity android:name=".Auth.SignIn_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
