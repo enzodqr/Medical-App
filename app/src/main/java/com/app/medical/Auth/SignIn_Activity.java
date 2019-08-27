@@ -73,7 +73,7 @@ public class SignIn_Activity extends AppCompatActivity {
                         createSignInIntentBuilder(). // layout style
                         setAvailableProviders(providers).
                         setIsSmartLockEnabled(false). // Disable smart lock for testing and development
-                        setTheme(R.style.MyTheme).
+                        setTheme(R.style.Firebase_theme).
                         setTosAndPrivacyPolicyUrls("https://superapp.example.com/terms-of-service.html",
                                 "https://superapp.example.com/privacy-policy.html").
                         setAuthMethodPickerLayout(customLayout).
