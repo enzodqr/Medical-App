@@ -9,10 +9,14 @@ import android.widget.Button;
 
 import com.app.medical.Menu.Menu_Activity;
 import com.app.medical.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignIn_Activity extends AppCompatActivity {
 
     Button signIn_btn;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +30,14 @@ public class SignIn_Activity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
             }
         });
+
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser); create a custom method for when the user logIn
     }
 }
