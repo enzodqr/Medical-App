@@ -59,7 +59,7 @@ public class Menu_Activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        // Test
+        // Sign out button, move to the profile interfase
         sign_out_btn = findViewById(R.id.sign_out_btn);
         sign_out_btn.setOnClickListener(new View.OnClickListener() {
             @Override
