@@ -16,7 +16,8 @@
 
         </activity>
         <activity android:name=".Auth.SignUp_Activity"></activity>
-        <activity android:name=".Auth.SignIn_Activity">
+        <activity android:name=".Auth.SignIn_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
