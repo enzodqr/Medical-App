@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Profile's colors -->
+
+    <color name="labels">#2F7092</color>
+    <color name="header">#3797CF</color>
+    <color name="profile_circle">#80FFFFF</color>
+    <color name="profile_circle_border">50FFFFF</color>
+    <color name="profile_grad_color_start">#63C9FF</color>
+    <color name="profile_grad_color_end">#67EFC8</color>
+
 </resources>

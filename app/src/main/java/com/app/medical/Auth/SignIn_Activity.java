@@ -93,11 +93,11 @@ public class SignIn_Activity extends AppCompatActivity {
     }
 
     private void show_signIn_options() {
-        AuthMethodPickerLayout customLayout = new AuthMethodPickerLayout
-                .Builder(R.layout.activity_sign_in)
-                .setGoogleButtonId(R.id.Google_btn)
-                .setEmailButtonId(R.id.Email_btn)
-                .build();
+        AuthMethodPickerLayout customLayout = new AuthMethodPickerLayout.
+                Builder(R.layout.activity_sign_in).
+                setGoogleButtonId(R.id.Google_btn).
+                setEmailButtonId(R.id.Email_btn).
+                build();
 
         startActivityForResult(
                 AuthUI.getInstance().
