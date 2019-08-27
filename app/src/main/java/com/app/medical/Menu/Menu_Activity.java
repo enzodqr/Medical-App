@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.medical.Auth.SignIn_Activity;
 import com.app.medical.R;
 
 import java.util.ArrayList;
@@ -30,12 +31,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Menu_Activity extends AppCompatActivity {
 
-    private static final int MY_REQUEST_CODE = 7117;
     ArrayList<String> options_list;
     RecyclerView recyclerView;
-
-    List<AuthUI.IdpConfig> providers;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     // Test
     Button sign_out_btn;
@@ -72,7 +69,8 @@ public class Menu_Activity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 sign_out_btn.setEnabled(false);
-                                showSignInOptions();
+                                startActivity(new Intent(getApplicationContext(), SignIn_Activity.class));
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -83,30 +81,8 @@ public class Menu_Activity extends AppCompatActivity {
             }
         });
 
-
-        providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build() //, Add facebook option later
-                //new AuthUI.IdpConfig.FacebookBuilder().build()
-        );
-
-        showSignInOptions();
-
     }
 
-    private void showSignInOptions() {
-        startActivityForResult(
-                AuthUI.getInstance().
-                        createSignInIntentBuilder(). // layout style
-                        setAvailableProviders(providers).
-                        setIsSmartLockEnabled(false). // Disable smart lock for testing and development
-                        setTheme(R.style.MyTheme).
-                        setTosAndPrivacyPolicyUrls("https://superapp.example.com/terms-of-service.html",
-                                "https://superapp.example.com/privacy-policy.html").
-                        build(),
-                MY_REQUEST_CODE
-        );
-    }
 
     private void set_options(){
         options_list.add("Perfil");
@@ -118,22 +94,4 @@ public class Menu_Activity extends AppCompatActivity {
         options_list.add("S.O.S");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == MY_REQUEST_CODE) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            if(resultCode == RESULT_OK){
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_LONG).show();
-
-                sign_out_btn.setEnabled(true);
-            } else {
-                Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }
