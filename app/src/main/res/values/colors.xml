@@ -9,7 +9,7 @@
     <color name="profile_labels">#2F7092</color>
     <color name="profile_txt_header">#3797CF</color>
     <color name="profile_circle">#80FFFF</color>
-    <color name="profile_circle_border">#50FFFF</color>
+    <color name="profile_circle_border">#FFFFFF</color>
     <color name="profile_grad_color_start">#63C9FF</color>
     <color name="profile_grad_color_end">#67EFC8</color>
     <color name="profile_name">#FFFFFF</color>

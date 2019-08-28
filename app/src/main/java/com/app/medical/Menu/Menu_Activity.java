@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.R;
 
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Menu_Activity extends AppCompatActivity {
 
     Button sign_out_btn;
+    Button profile_btn;
 
     // Firebase variables
     private static final int RC_SIGN_IN = 7117;
@@ -77,6 +79,16 @@ public class Menu_Activity extends AppCompatActivity {
                         Toast.makeText(Menu_Activity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+
+        profile_btn = findViewById(R.id.btn_perfil);
+        profile_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
+                finish();
             }
         });
 
