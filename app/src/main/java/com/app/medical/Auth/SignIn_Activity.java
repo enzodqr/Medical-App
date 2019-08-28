@@ -27,8 +27,6 @@ import java.util.List;
 
 public class SignIn_Activity extends AppCompatActivity {
 
-    Button signIn_btn;
-
     private static final int RC_SIGN_IN = 7117;
     ArrayList<String> options_list;
     List<AuthUI.IdpConfig> providers;
