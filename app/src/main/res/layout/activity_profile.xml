@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_img"
             android:layout_centerHorizontal="true"
-            android:text="Putitos"
+            android:text="Test"
             android:textSize="32sp"
             android:textColor="@color/profile_name"
             android:layout_marginTop="15sp"/>
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/profile_txt_body"
                     android:textSize="18sp"
-                    android:text="putitos@gmail.com"/>
+                    android:text="Test@gmail.com"/>
 
                 <View
                     android:layout_width="match_parent"
