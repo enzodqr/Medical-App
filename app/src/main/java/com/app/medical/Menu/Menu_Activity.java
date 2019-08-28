@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ public class Menu_Activity extends AppCompatActivity {
 
     Button sign_out_btn;
     Button profile_btn;
+    Button sos_btn;
+    MediaPlayer mediaPlayer; //para la reproducción de sonidos
 
     // Firebase variables
     private static final int RC_SIGN_IN = 7117;
@@ -89,6 +92,20 @@ public class Menu_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
                 finish();
+            }
+        });
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.alarma);
+        sos_btn = findViewById(R.id.btn_sos);
+        sos_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                }else{
+                    mediaPlayer.start();
+                    Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
