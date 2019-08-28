@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.Menu_Activity"></activity>
-        <activity android:name=".Auth.SignIn_Activity"
+        <activity android:name=".Menu.Menu_Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Auth.SignUp_Activity"></activity>
         <activity android:name=".Auth.SignIn_Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
         </activity>
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
