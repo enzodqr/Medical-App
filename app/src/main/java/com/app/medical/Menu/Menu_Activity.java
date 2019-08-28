@@ -54,8 +54,7 @@ public class Menu_Activity extends AppCompatActivity {
 
         // Checks if a user already logged in
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
-            finish();
+            Toast.makeText(Menu_Activity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
         } else {
             show_signIn_options();
         }
@@ -70,9 +69,7 @@ public class Menu_Activity extends AppCompatActivity {
                         addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                sign_out_btn.setEnabled(false);
-                                //startActivity(new Intent(getApplicationContext(), SignIn_Activity.class));
-                                //finish();
+                                show_signIn_options();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -99,8 +96,6 @@ public class Menu_Activity extends AppCompatActivity {
                         setAvailableProviders(providers).
                         setIsSmartLockEnabled(false). // Disable smart lock for testing and development
                         setTheme(R.style.Firebase_theme).
-                        setTosAndPrivacyPolicyUrls("https://superapp.example.com/terms-of-service.html",
-                                "https://superapp.example.com/privacy-policy.html").
                         setAuthMethodPickerLayout(customLayout).
                         build(),
                 RC_SIGN_IN
@@ -115,8 +110,8 @@ public class Menu_Activity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if(resultCode == RESULT_OK){
-                startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
-                finish();
+                //startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
+                //finish();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_LONG).show();
 
