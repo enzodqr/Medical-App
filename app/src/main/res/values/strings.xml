@@ -5,4 +5,6 @@
     <string name="ingresar_text">Ingresar</string>
     <string name="registrarme_text">Registrarme</string>
     <string name="app_title">Medical+</string>
+    <string name="facebook_application_id" translatable="false">2650482491648834</string>
+    <string name ="facebook_login_protocol_schema" translatable="false">fb1634338046880924</string>
 </resources>

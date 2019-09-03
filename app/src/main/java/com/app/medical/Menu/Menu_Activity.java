@@ -51,9 +51,9 @@ public class Menu_Activity extends AppCompatActivity {
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build()
+                new AuthUI.IdpConfig.PhoneBuilder().build(),
                 // Add facebook option later
-                // new AuthUI.IdpConfig.FacebookBuilder().build()
+        new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
 
