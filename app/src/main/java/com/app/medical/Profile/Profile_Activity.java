@@ -46,7 +46,6 @@ public class Profile_Activity extends AppCompatActivity {
             }
         });
     }
-
     private void Add_Data() {
         profile_list.add(new Profile_Model("Email:", "test@test.com"));
         profile_list.add(new Profile_Model("Teléfono:", "+506 88213221"));
@@ -55,14 +54,14 @@ public class Profile_Activity extends AppCompatActivity {
         profile_list.add(new Profile_Model("Alergias", "Ninguna"));
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             return_to_menu();
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
     private void return_to_menu(){
         startActivity(new Intent(getApplicationContext(), Menu_Activity.class));

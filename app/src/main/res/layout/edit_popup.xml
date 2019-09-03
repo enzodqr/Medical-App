@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="500dp"
+    android:layout_gravity="center"
+    android:background="@drawable/bg1"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/txt_cerrar_popup"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:background="@drawable/circle_background"
+        android:gravity="center"
+        android:text="X"
+        android:textColor="#fff"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="395dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelar"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:background="@drawable/profile_circle"/>
+
+        <Button
+            android:id="@+id/guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Guardar"
+            android:background="@drawable/profile_circle"/>
+    </LinearLayout>
+
+</LinearLayout>
