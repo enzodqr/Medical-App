@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.medical.Agenda.Agenda;
 import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.R;
 
@@ -33,6 +34,7 @@ public class Menu_Activity extends AppCompatActivity {
     Button profile_btn;
     Button sos_btn;
     MediaPlayer mediaPlayer; //para la reproducción de sonidos
+    Button agenda_btn;
 
     // Firebase variables
     private static final int RC_SIGN_IN = 7117;
@@ -106,6 +108,14 @@ public class Menu_Activity extends AppCompatActivity {
                     mediaPlayer.start();
                     Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        agenda_btn = (Button) findViewById(R.id.btn_agenda);
+        agenda_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Agenda.class));
             }
         });
 
