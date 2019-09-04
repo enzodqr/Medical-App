@@ -14,8 +14,6 @@ import com.app.medical.R;
 
 public class Splash extends Activity {
 
-    private final int timerSplash = 1000; /*1 segundo*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +21,8 @@ public class Splash extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
+        /*1 segundo*/
+        int timerSplash = 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -14,18 +14,25 @@ import android.widget.Toast;
 
 import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.R;
+import com.app.medical.DB_Utilities.DB_Utilities;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Menu_Activity extends AppCompatActivity {
 
@@ -34,11 +41,12 @@ public class Menu_Activity extends AppCompatActivity {
     Button sos_btn;
     MediaPlayer mediaPlayer; //para la reproducción de sonidos
 
+
     // Firebase variables
     private static final int RC_SIGN_IN = 7117;
     List<AuthUI.IdpConfig> providers;
     FirebaseAuth auth = FirebaseAuth.getInstance();
-
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @SuppressLint("WrongConstant")
     @Override
@@ -59,7 +67,8 @@ public class Menu_Activity extends AppCompatActivity {
 
         // Checks if a user already logged in
         if (auth.getCurrentUser() != null) {
-            Toast.makeText(Menu_Activity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Menu_Activity.this, "Welcome Back!",
+                    Toast.LENGTH_SHORT).show();
         } else {
             show_signIn_options();
         }
@@ -79,7 +88,8 @@ public class Menu_Activity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Menu_Activity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Menu_Activity.this, ""+e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -139,16 +149,70 @@ public class Menu_Activity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if(resultCode == RESULT_OK){
-                //startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
-                //finish();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_LONG).show();
-
-                // sign_out_btn.setEnabled(true);
+                add_user_db(user);
             } else {
-                Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, ""+response.getError().getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         }
     }
 
+
+    // Checks if the user exists in the db
+    // if not the user is added else it does nothing
+    private void add_user_db(final FirebaseUser user){
+
+        // Each document name is equal to the user uid
+
+        // Tells which document whe want to check
+        DocumentReference documentReference = firestore.collection(DB_Utilities.USERS).
+                document(user.getUid());
+
+        // Asks if the document exist
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot snapshot = task.getResult();
+                    if(snapshot.exists()){
+                        Toast.makeText(Menu_Activity.this, "Document exists!",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+
+
+                        Map<String, Object> map = new HashMap<>();
+                        map.put(DB_Utilities.USER_NAME, user.getDisplayName());
+                        map.put(DB_Utilities.USER_ID, 0);
+                        map.put(DB_Utilities.USER_AGE, 0);
+                        map.put(DB_Utilities.USER_GENDER, "");
+                        map.put(DB_Utilities.USER_PHONE, 0);
+                        map.put(DB_Utilities.USER_BLOOD_TYPE, "");
+                        map.put(DB_Utilities.USER_ADDRESS,"");
+                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, "");
+                        map.put(DB_Utilities.USER_NATIONALITY, "");
+
+
+                        firestore.collection(DB_Utilities.USERS).document(user.getUid()).set(map).
+                                addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(Menu_Activity.this, "User addedd!",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Menu_Activity.this, "Error!" + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(Menu_Activity.this, "Failed: !" + task.getException(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }
