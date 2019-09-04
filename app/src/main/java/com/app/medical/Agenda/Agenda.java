@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,6 @@ public class Agenda extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Agenda.this, "mensaje", Toast.LENGTH_SHORT).show();
                 show_modal(view);
             }
         });
@@ -39,6 +39,8 @@ public class Agenda extends AppCompatActivity {
 
     public void show_modal(View v){
         TextView cerrar;
+        ImageButton btn_cancel;
+
         pop_up.setContentView(R.layout.edit_popup);
         cerrar = (TextView) pop_up.findViewById(R.id.txt_cerrar_popup);
         cerrar.setOnClickListener(new View.OnClickListener() {
@@ -49,5 +51,14 @@ public class Agenda extends AppCompatActivity {
         });
         pop_up.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pop_up.show();
+
+        btn_cancel = (ImageButton) pop_up.findViewById(R.id.btn_cancelEdit);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pop_up.dismiss();
+            }
+        });
+
     }
 }
