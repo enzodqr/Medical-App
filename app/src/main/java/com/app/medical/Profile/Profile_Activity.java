@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.app.medical.Menu.Menu_Activity;
 import com.app.medical.R;
@@ -23,15 +24,24 @@ public class Profile_Activity extends AppCompatActivity {
 
     ImageButton back_btn;
 
+    String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("uid");
+
+        Toast.makeText(Profile_Activity.this, "Contacto: " + user_id,
+                Toast.LENGTH_SHORT).show();
+
         profile_list = new ArrayList<>();
 
         recyclerView = findViewById(R.id.Profile_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.
+                VERTICAL, false));
 
         Add_Data();
 

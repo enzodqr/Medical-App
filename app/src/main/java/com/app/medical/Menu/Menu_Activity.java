@@ -35,7 +35,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Menu_Activity extends AppCompatActivity {
+public class Menu_Activity extends AppCompatActivity  implements View.OnClickListener {
 
     Button sign_out_btn;
     Button profile_btn;
@@ -43,19 +43,21 @@ public class Menu_Activity extends AppCompatActivity {
     MediaPlayer mediaPlayer; //para la reproducción de sonidos
     Button agenda_btn;
 
+    String user_id;
 
     // Firebase variables
     private static final int RC_SIGN_IN = 7117;
     List<AuthUI.IdpConfig> providers;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
 
         // Array of the signIn providers
         providers = Arrays.asList(
@@ -66,69 +68,46 @@ public class Menu_Activity extends AppCompatActivity {
                 // new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
+        mediaPlayer = MediaPlayer.create(Menu_Activity.this, R.raw.alarma);
+
+        profile_btn = findViewById(R.id.btn_perfil);
+        profile_btn.setOnClickListener(this);
+        sign_out_btn = findViewById(R.id.sign_out_btn);
+        sign_out_btn.setOnClickListener(this);
+        agenda_btn = findViewById(R.id.btn_agenda);
+        agenda_btn.setOnClickListener(this);
+        sos_btn = findViewById(R.id.btn_sos);
+        sos_btn.setOnClickListener(this);
+
 
         // Checks if a user already logged in
         if (auth.getCurrentUser() != null) {
-            Toast.makeText(Menu_Activity.this, "Welcome Back!",
+            user_id = user.getUid();
+            Toast.makeText(Menu_Activity.this, "Contacto: " + user_id,
                     Toast.LENGTH_SHORT).show();
         } else {
             show_signIn_options();
         }
 
+    }
 
-        // Sign out button, move to the profile interfase
-        sign_out_btn = findViewById(R.id.sign_out_btn);
-        sign_out_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthUI.getInstance().signOut(Menu_Activity.this).
-                        addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                show_signIn_options();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Menu_Activity.this, ""+e.getMessage(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+    // Menu button's functionality
+    // Ordered by menu display order
+    @Override
+    public void onClick(View view) {
 
+        // Gets the button id
+        int id = view.getId();
 
-        profile_btn = findViewById(R.id.btn_perfil);
-        profile_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Profile_Activity.class));
-                finish();
-            }
-        });
-
-        mediaPlayer = MediaPlayer.create(this, R.raw.alarma);
-        sos_btn = findViewById(R.id.btn_sos);
-        sos_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.pause();
-                }else{
-                    mediaPlayer.start();
-                    Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        agenda_btn = (Button) findViewById(R.id.btn_agenda);
-        agenda_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Agenda.class));
-            }
-        });
-
+        if(id == R.id.btn_perfil){
+            go_to_profile();
+        } else if(id == R.id.btn_agenda){
+            startActivity(new Intent(getApplicationContext(), Agenda.class));
+        } else if (id == R.id.btn_sos){
+            media_player();
+        } else if(id == R.id.sign_out_btn) {
+            sign_out_db();
+        }
     }
 
     private void show_signIn_options() {
@@ -157,10 +136,8 @@ public class Menu_Activity extends AppCompatActivity {
 
         if(requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-
             if(resultCode == RESULT_OK){
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                add_user_db(user);
+                add_user_db();
             } else {
                 Toast.makeText(this, ""+response.getError().getMessage(),
                         Toast.LENGTH_LONG).show();
@@ -171,7 +148,7 @@ public class Menu_Activity extends AppCompatActivity {
 
     // Checks if the user exists in the db
     // if not the user is added else it does nothing
-    private void add_user_db(final FirebaseUser user){
+    private void add_user_db(){
 
         // Each document name is equal to the user uid
 
@@ -225,4 +202,41 @@ public class Menu_Activity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+    private void go_to_profile(){
+        Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
+        intent.putExtra("uid", user_id);
+        startActivity(intent);
+        finish();
+    }
+
+    // Plays the alarm of the sos button
+    private void media_player(){
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }else{
+            mediaPlayer.start();
+            Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sign_out_db(){
+        AuthUI.getInstance().signOut(Menu_Activity.this).
+                addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        show_signIn_options();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Menu_Activity.this, ""+e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
