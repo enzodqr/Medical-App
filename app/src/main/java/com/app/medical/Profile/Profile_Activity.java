@@ -32,7 +32,7 @@ public class Profile_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         Intent intent = getIntent();
-        user_id = intent.getStringExtra("uid");
+        //user_id = intent.getStringExtra("uid");
 
         Toast.makeText(Profile_Activity.this, "Contacto: " + user_id,
                 Toast.LENGTH_SHORT).show();
