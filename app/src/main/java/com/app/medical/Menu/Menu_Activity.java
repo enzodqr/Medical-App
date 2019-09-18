@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.medical.Agenda.Agenda;
+import com.app.medical.DB_Utilities.SQLite_Helper;
 import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.R;
 import com.app.medical.DB_Utilities.DB_Utilities;
@@ -62,6 +65,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     String user_uid;
     String user_name;
 
+    SQLite_Helper conn;
+
 
 
     @SuppressLint("WrongConstant")
@@ -70,6 +75,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        conn = new SQLite_Helper(this, "sqlite_db",null, 1);
 
         profile_btn = findViewById(R.id.btn_perfil);
         sign_out_btn = findViewById(R.id.sign_out_btn);
@@ -176,6 +182,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         user_uid = auth.getUid();
         user_name = auth.getCurrentUser().getDisplayName();
 
+        create_sqlite_db(user_uid);
+
         // Collection and document that is going to be used
         DocumentReference documentReference = firestore.collection(DB_Utilities.USERS).
                 document(user_uid);
@@ -198,7 +206,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                         map.put(DB_Utilities.USER_PHONE, 0);
                         map.put(DB_Utilities.USER_BLOOD_TYPE, "");
                         map.put(DB_Utilities.USER_ADDRESS,"");
-                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, "");
+                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, 0);
                         map.put(DB_Utilities.USER_NATIONALITY, "");
 
                         firestore.collection(DB_Utilities.USERS).document(user_uid).set(map).
@@ -246,6 +254,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                 addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        drop_sqlite_db();
                         show_signIn_options();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -255,6 +264,18 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void create_sqlite_db(String id){
+        SQLiteDatabase db = conn.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DB_Utilities.COLUMN_ID, id);
+        db.insert(DB_Utilities.TABLE_USER, DB_Utilities.COLUMN_ID, values);
+    }
+
+    private void drop_sqlite_db(){
+        SQLiteDatabase db = conn.getWritableDatabase();
+        db.execSQL(DB_Utilities.DROP_TABLE_USER);
     }
 
 }

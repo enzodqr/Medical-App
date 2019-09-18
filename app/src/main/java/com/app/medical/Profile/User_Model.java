@@ -2,22 +2,21 @@ package com.app.medical.Profile;
 
 public class User_Model {
 
-    private String uid;
+    private String address;
+    private int age;
+    private String blood_type;
+    private int emergency_contact;
+    private String gender;
     private int id;
     private String name;
-    private int age;
-    private String gender;
-    private int phone;
-    private String blood_type;
-    private String address;
-    private int emergency_contact;
     private String nationality;
+    private int phone;
+
 
     public User_Model() {
     }
 
-    public User_Model(String uid, int id, String name, int age, String gender, int phone, String blood_type, String address, int emergency_contact, String nationality) {
-        this.uid = uid;
+    public User_Model( int id, String name, int age, String gender, int phone, String blood_type, String address, int emergency_contact, String nationality) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -27,14 +26,6 @@ public class User_Model {
         this.address = address;
         this.emergency_contact = emergency_contact;
         this.nationality = nationality;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public int getId() {
