@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Test"
-            android:textSize="32sp"
+            android:text="Name"
+            android:textSize="25sp"
             android:textColor="@color/profile_name"
             android:layout_marginTop="35dp"/>
         <ImageButton

@@ -99,6 +99,21 @@ public class User_Model {
     public void setNationality(String nationality) {
         this.nationality = nationality;
     }
+
+    @Override
+    public String toString() {
+        return "User_Model{" +
+                "address='" + address + '\'' +
+                ", age=" + age +
+                ", blood_type='" + blood_type + '\'' +
+                ", emergency_contact=" + emergency_contact +
+                ", gender='" + gender + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", phone=" + phone +
+                '}';
+    }
 }
 
 

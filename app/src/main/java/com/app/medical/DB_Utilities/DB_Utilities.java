@@ -15,8 +15,16 @@ public class DB_Utilities {
     public static final  String USER_ADDRESS = "address";
     public static final  String USER_EMERGENCY_CONTACT = "emergency_contact";
     public static final  String USER_NATIONALITY = "nationality";
-    public static final String TABLE_USER= "users";
-    public static final String COLUMN_ID = "user_id";
-    public static final String CREATE_TABLE_USER = "CREATE TABLE "+TABLE_USER+" ("+COLUMN_ID+" TEXT)";
-    public static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS "+TABLE_USER;
+
+
+
+    public static final String TAG_ID = "Identificación:";
+    public static final String TAG_NAME = "Nombre:";
+    public static final String TAG_AGE = "Edad:";
+    public static final String TAG_GENDER = "Genero:";
+    public static final  String TAG_PHONE = "Teléfono:";
+    public static final  String TAG_BLOOD_TYPE = "Tipo de Sangre:";
+    public static final  String TAG_ADDRESS = "Dirección de vivienda:";
+    public static final  String TAG_EMERGENCY_CONTACT = "Contacto de emergencia:";
+    public static final  String TAG_NATIONALITY = "Nacionalidad:";
 }
