@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.medical.DB_Utilities.DB_Utilities;
 import com.app.medical.Menu.Menu_Activity;
@@ -50,6 +52,8 @@ public class Profile_Activity extends AppCompatActivity {
     /* Layout elements variables */
 
     TextView profile_name_txt;
+    EditText data_txt;
+    ImageButton edit_btn;
     ImageButton back_btn;
 
 
@@ -63,6 +67,8 @@ public class Profile_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         profile_name_txt = findViewById(R.id.profile_name);
+        data_txt = findViewById(R.id.profile_op_data);
+        edit_btn = findViewById(R.id.profile_edit);
         back_btn = findViewById(R.id.profile_back);
 
         profile_list = new ArrayList<>();
@@ -71,6 +77,13 @@ public class Profile_Activity extends AppCompatActivity {
                 VERTICAL, false));
 
         get_user_data();
+
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //data_txt.setFocusable(true);
+            }
+        });
 
 
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +98,6 @@ public class Profile_Activity extends AppCompatActivity {
     *   Gets the user's data from the DB base on it's id and send it to the adapter
     * */
     public void get_user_data(){
-
-        Log.d("Data user id", "Data: " + auth.getUid());
 
         documentReference = FirebaseFirestore.getInstance()
                 .document(DB_Utilities.USERS+"/"+auth.getUid());
@@ -111,6 +122,14 @@ public class Profile_Activity extends AppCompatActivity {
                     profile_list.add(new Profile_Model(DB_Utilities.TAG_NATIONALITY, user.getNationality()));
 
                     Profile_Adapter adapter = new Profile_Adapter(profile_list);
+
+                    adapter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            data_txt.setFocusable(true);
+                        }
+                    });
+
                     recyclerView.setAdapter(adapter);
                 }
             }

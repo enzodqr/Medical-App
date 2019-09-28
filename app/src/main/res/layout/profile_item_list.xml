@@ -18,13 +18,17 @@
             android:textSize="13sp"
             android:text="Tittle"/>
 
-        <TextView
+        <EditText
             android:id="@+id/profile_op_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_body"
+            android:ems="10"
             android:textSize="18sp"
-            android:text="Data"/>
+            android:inputType="textPersonName"
+            android:focusable="false"
+            android:textColor="@color/profile_txt_body"
+            android:background="@android:color/transparent"
+            android:text="Name" />
 
     </LinearLayout>
 
