@@ -52,7 +52,8 @@ public class Profile_Activity extends AppCompatActivity {
     /* Layout elements variables */
 
     TextView profile_name_txt;
-    EditText data_txt;
+    TextView data_txt;
+
     ImageButton edit_btn;
     ImageButton back_btn;
 
@@ -85,6 +86,12 @@ public class Profile_Activity extends AppCompatActivity {
             }
         });
 
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                go_to_edit();
+            }
+        });
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,14 +129,6 @@ public class Profile_Activity extends AppCompatActivity {
                     profile_list.add(new Profile_Model(DB_Utilities.TAG_NATIONALITY, user.getNationality()));
 
                     Profile_Adapter adapter = new Profile_Adapter(profile_list);
-
-                    adapter.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            data_txt.setFocusable(true);
-                        }
-                    });
-
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -154,6 +153,13 @@ public class Profile_Activity extends AppCompatActivity {
     * */
     private void return_to_menu(){
         startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
+        finish();
+    }
+
+    private void go_to_edit(){
+        Intent intent = new Intent(getApplicationContext(), Edit_Profile_Activity.class);
+        intent.putExtra("User_Object", user);
+        startActivity(intent);
         finish();
     }
 }
