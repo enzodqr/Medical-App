@@ -32,7 +32,7 @@ import java.util.TimeZone;
 public class CustomCalendarView extends LinearLayout {
 
     ImageButton next, prev; // para paginación de meses
-    TextView currentDate; //pfecha actual
+    TextView currentDate; //fecha actual
     GridView gridview; //vista del calendario
     private static final int MAX_CALENDAR_DAYS = 42;
     Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
@@ -43,6 +43,7 @@ public class CustomCalendarView extends LinearLayout {
     SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.ENGLISH);
 
     AlertDialog alertDialog;
+    MyGridAdapter myGridAdapter;
 
     List<Date> dates = new ArrayList<>();
     List<Events> eventsList = new ArrayList<>();
@@ -131,6 +132,9 @@ public class CustomCalendarView extends LinearLayout {
                 alertDialog.show();
             }
         });
+
+
+
     }
 
     public CustomCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -168,6 +172,9 @@ public class CustomCalendarView extends LinearLayout {
             month_calendar.add(Calendar.DAY_OF_MONTH, 1);
 
         }
+
+        myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
+        gridview.setAdapter(myGridAdapter);
 
     }
 
