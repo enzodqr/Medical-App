@@ -53,14 +53,15 @@ public class MyGridAdapter extends ArrayAdapter {
            view = inflater.inflate(R.layout.single_cell_layout, parent, false);
         }
         if(display_month == current_month && display_year == current_year){
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.profile_labels));
         }
         else {
-            view.setBackgroundColor(Color.parseColor("#cccccc"));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.grey));
         }
 
         TextView day_number = view.findViewById(R.id.calendar_day);
         day_number.setText(String.valueOf(day_no));
+        day_number.setTextColor(getContext().getResources().getColor(R.color.white));
         TextView event_number = view.findViewById(R.id.events_id);
 
         Calendar event_calendar = Calendar.getInstance();

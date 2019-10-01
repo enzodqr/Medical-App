@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +49,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                 deleteCalendarEvent(events.getEVENT(), events.getDATE(), events.getTIME());
                 arrayList.remove(position);
                 notifyDataSetChanged();
+                Toast.makeText(context, "Evento Eliminado", Toast.LENGTH_SHORT).show();
             }
         });
     }

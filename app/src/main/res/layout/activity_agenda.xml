@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg1"
     tools:context=".Agenda.Agenda">
 
     <com.app.medical.Agenda.CustomCalendarView
+        android:id="@+id/custom_calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/custom_calendar_view">
+        android:layout_height="match_parent">
 
     </com.app.medical.Agenda.CustomCalendarView>
 
