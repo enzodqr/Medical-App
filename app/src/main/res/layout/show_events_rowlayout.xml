@@ -46,12 +46,12 @@
                 android:textSize="20dp"/>
 
             <Button
+                android:id="@+id/delete_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/delete_btn"
-                android:text="Delete"
-                android:textAllCaps="false"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:text="Eliminar"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

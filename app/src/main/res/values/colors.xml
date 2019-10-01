@@ -6,7 +6,7 @@
 
     <!-- Profile's colors -->
 
-    <color name="profile_labels">#2F7092</color>
+    <color name="profile_labels">#003862</color>
     <color name="profile_txt_header">#3797CF</color>
     <color name="profile_circle">#80FFFF</color>
     <color name="profile_circle_border">#FFFFFF</color>
