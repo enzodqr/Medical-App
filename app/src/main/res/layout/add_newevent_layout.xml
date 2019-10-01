@@ -9,6 +9,7 @@
         android:layout_height="50dp"
         android:background="@android:color/white"
         android:hint="Type Event"
+        android:id="@+id/event_name"
         android:inputType="textShortMessage"
         android:layout_margin="20dp"
         android:layout_gravity="center"/>

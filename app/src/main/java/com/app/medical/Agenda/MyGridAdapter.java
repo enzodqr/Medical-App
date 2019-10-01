@@ -13,9 +13,13 @@ import androidx.annotation.Nullable;
 
 import com.app.medical.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MyGridAdapter extends ArrayAdapter {
     List<Date> dates;
@@ -57,8 +61,30 @@ public class MyGridAdapter extends ArrayAdapter {
 
         TextView day_number = view.findViewById(R.id.calendar_day);
         day_number.setText(String.valueOf(day_no));
-        
+        TextView event_number = view.findViewById(R.id.events_id);
+
+        Calendar event_calendar = Calendar.getInstance();
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (int i = 0; i<events.size(); i++){
+            event_calendar.setTime(ConvertStringToDate(events.get(i).getDATE()));
+            if (day_no == event_calendar.get(Calendar.DAY_OF_MONTH) && display_month == event_calendar.get(Calendar.MONTH)+1
+            && display_year == event_calendar.get(Calendar.YEAR)){
+                arrayList.add(events.get(i).getEVENT());
+                event_number.setText(arrayList.size()+"Events");
+            }
+        }
         return view;
+    }
+
+    private Date ConvertStringToDate(String eventDate){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = null;
+        try{
+            date = format.parse(eventDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+            return date;
     }
 
     @Override
