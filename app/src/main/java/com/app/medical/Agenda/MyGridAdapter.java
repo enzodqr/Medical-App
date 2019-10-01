@@ -71,7 +71,7 @@ public class MyGridAdapter extends ArrayAdapter {
             if (day_no == event_calendar.get(Calendar.DAY_OF_MONTH) && display_month == event_calendar.get(Calendar.MONTH)+1
             && display_year == event_calendar.get(Calendar.YEAR)){
                 arrayList.add(events.get(i).getEVENT());
-                event_number.setText(arrayList.size()+"Eventos");
+                event_number.setText("°");
             }
         }
         return view;
