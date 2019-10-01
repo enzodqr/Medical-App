@@ -44,15 +44,8 @@ public class Profile_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     User_Model user;
 
-    /* Firebase variables */
-
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private DocumentReference documentReference;
-
     /* Layout elements variables */
-
     TextView profile_name_txt;
-    TextView data_txt;
 
     ImageButton edit_btn;
     ImageButton back_btn;
@@ -67,11 +60,6 @@ public class Profile_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        profile_name_txt = findViewById(R.id.profile_name);
-        data_txt = findViewById(R.id.profile_op_data);
-        edit_btn = findViewById(R.id.profile_edit);
-        back_btn = findViewById(R.id.profile_back);
-
         profile_list = new ArrayList<>();
         recyclerView = findViewById(R.id.Profile_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.
@@ -79,12 +67,10 @@ public class Profile_Activity extends AppCompatActivity {
 
         get_user_data();
 
-        edit_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //data_txt.setFocusable(true);
-            }
-        });
+        profile_name_txt = findViewById(R.id.profile_name);
+        edit_btn = findViewById(R.id.profile_edit);
+        back_btn = findViewById(R.id.profile_back);
+
 
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +92,9 @@ public class Profile_Activity extends AppCompatActivity {
     * */
     public void get_user_data(){
 
-        documentReference = FirebaseFirestore.getInstance()
+        /* Firebase variables */
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DocumentReference documentReference = FirebaseFirestore.getInstance()
                 .document(DB_Utilities.USERS+"/"+auth.getUid());
 
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
