@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg1"
     tools:context=".Agenda.Agenda">
 
-    <CalendarView
-        android:id="@+id/calendario"
+    <com.app.medical.Agenda.CustomCalendarView
+        android:id="@+id/custom_calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="352dp" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_prueba_popUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginLeft="165dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginRight="158dp"
-        android:text="Pop Up" />
-</RelativeLayout>
+    </com.app.medical.Agenda.CustomCalendarView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
