@@ -249,6 +249,9 @@ public class CustomCalendarView extends LinearLayout {
 
         eventsList.clear();
 
+        myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
+        gridview.setAdapter(myGridAdapter);
+
         firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
                 .whereEqualTo("Month", monthFormat.format(calendar.getTime()))
                 .whereEqualTo("Year", yearFormat.format(calendar.getTime()))
