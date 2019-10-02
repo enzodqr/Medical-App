@@ -5,4 +5,35 @@
     <string name="ingresar_text">Ingresar</string>
     <string name="registrarme_text">Registrarme</string>
     <string name="app_title">Medical+</string>
+    <string name="facebook_application_id" translatable="false">2650482491648834</string>
+    <string name="facebook_login_protocol_schema" translatable="false">fb1634338046880924</string>
+    <string name="str_nombre">Nombre</string>
+    <string name="str_identificación">Identificación</string>
+    <string name="str_edad">Edad</string>
+    <string name="str_genero">Genero</string>
+    <string name="str_teléfono">Teléfono</string>
+    <string name="str_contacto_emergencia">Contacto de emergencia</string>
+    <string name="str_dirección">Dirección</string>
+    <string name="str_tipo_sangre">Tipo de sangre</string>
+    <string name="str_nacionalidad">Nacionalidad</string>
+    <string name="str_guardar">Guardar</string>
+    <string name="str_cancelar">Cancelar</string>
+
+    <string-array name="generos">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="tipos_sangres">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
 </resources>

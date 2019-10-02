@@ -78,7 +78,7 @@ public class MyGridAdapter extends ArrayAdapter {
     }
 
     private Date ConvertStringToDate(String eventDate){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         Date date = null;
         try{
             date = format.parse(eventDate);

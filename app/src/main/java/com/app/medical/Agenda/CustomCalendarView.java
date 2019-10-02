@@ -1,5 +1,6 @@
 package com.app.medical.Agenda;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +26,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.app.medical.DB_Utilities.DB_Utilities;
 import com.app.medical.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,9 +53,9 @@ public class CustomCalendarView extends LinearLayout {
     Context context;
     /*formatos de las fechas*/
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy",Locale.ENGLISH);
-    SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.ENGLISH);
+    SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.ENGLISH);
     SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.ENGLISH);
-    SimpleDateFormat eventDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    SimpleDateFormat eventDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
     AlertDialog alertDialog;
     MyGridAdapter myGridAdapter;
@@ -55,6 +64,9 @@ public class CustomCalendarView extends LinearLayout {
     List<Events> eventsList = new ArrayList<>();
 
     DBOpenHelper dbOpenHelper;
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
 
     public CustomCalendarView(Context context) {
@@ -144,19 +156,45 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
                 String date = eventDateFormat.format(dates.get(i));
+                final ArrayList<Events> eventsArrayList = new ArrayList<>();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(true);
-                View showview = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_events_layout, null);
-                RecyclerView recyclerView = showview.findViewById(R.id.events_rv);
+                final View showview = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_events_layout, null);
+                final RecyclerView recyclerView = showview.findViewById(R.id.events_rv);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(showview.getContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setHasFixedSize(true);
-                EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showview.getContext(),
-                        collect_events_by_date(date));
-                recyclerView.setAdapter(eventRecyclerAdapter);
-                eventRecyclerAdapter.notifyDataSetChanged();
 
+                firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
+                        .whereEqualTo("Date", date)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Log.d("Read event", document.getId() + " => " + document.getData());
+                                        Events events = new Events(
+                                                document.get("Event_Name").toString(),
+                                                document.get("Time").toString(),
+                                                document.get("Date").toString(),
+                                                document.get("Month").toString(),
+                                                document.get("Year").toString()
+                                        );
+
+                                        eventsArrayList.add(events);
+                                        Log.d("Read event 1", eventsArrayList.toString());
+                                        EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showview.getContext(),
+                                                eventsArrayList);
+                                        recyclerView.setAdapter(eventRecyclerAdapter);
+                                        eventRecyclerAdapter.notifyDataSetChanged();
+                                    }
+                                } else {
+                                    Log.d("Read event", "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
                 builder.setView(showview);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -175,36 +213,14 @@ public class CustomCalendarView extends LinearLayout {
 
     }
 
-    private ArrayList<Events> collect_events_by_date(String date){
-        ArrayList<Events> arrayList = new ArrayList<>();
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.readEvents(date, database);
-        while (cursor.moveToNext()){
-            String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
-            String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
-            String Date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
-            String month = cursor.getString(cursor.getColumnIndex(DBStructure.MONTH));
-            String year = cursor.getString(cursor.getColumnIndex(DBStructure.YEAR));
-            Events events = new Events(event, time, Date, month, year);
-            arrayList.add(events);
-        }
-        cursor.close();
-        dbOpenHelper.close();
-
-        return arrayList;
-    }
-
 
     public CustomCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     private void save_event(String event, String time, String date, String month, String year) {
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.saveEvent(event, time, date, month, year, database);
-        dbOpenHelper.close();
+        dbOpenHelper = new DBOpenHelper();
+        dbOpenHelper.saveEvent(event, time, date, month, year);
         Toast.makeText(context, "Evento Guardado", Toast.LENGTH_SHORT).show();
     }
 
@@ -225,33 +241,42 @@ public class CustomCalendarView extends LinearLayout {
         month_calendar.set(Calendar.DAY_OF_MONTH, 1);
         int first_day_of_month = month_calendar.get(Calendar.DAY_OF_WEEK)-1;
         month_calendar.add(Calendar.DAY_OF_MONTH, -first_day_of_month);
-        CollectEventsPerMonth(monthFormat.format(calendar.getTime()),yearFormat.format(calendar.getTime()));
+        //CollectEventsPerMonth(monthFormat.format(calendar.getTime()),yearFormat.format(calendar.getTime()));
 
         while (dates.size() < MAX_CALENDAR_DAYS){
             dates.add(month_calendar.getTime());
             month_calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
-        gridview.setAdapter(myGridAdapter);
-    }
-
-    private void CollectEventsPerMonth(String Month, String Year){
         eventsList.clear();
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.readEventsXMonths(Month, Year,database);
-        while (cursor.moveToNext()){
-            String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
-            String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
-            String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
-            String month = cursor.getString(cursor.getColumnIndex(DBStructure.MONTH));
-            String year = cursor.getString(cursor.getColumnIndex(DBStructure.YEAR));
-            Events events = new Events(event, time, date, month,year);
-            eventsList.add(events);
-        }
-        cursor.close();
-        dbOpenHelper.close();
+
+        firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
+                .whereEqualTo("Month", monthFormat.format(calendar.getTime()))
+                .whereEqualTo("Year", yearFormat.format(calendar.getTime()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("Compose", document.getId() + " => " + document.getData());
+                                Events events = new Events(
+                                        document.get("Event_Name").toString(),
+                                        document.get("Time").toString(),
+                                        document.get("Date").toString(),
+                                        document.get("Month").toString(),
+                                        document.get("Year").toString()
+                                );
+
+                                eventsList.add(events);
+                                myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
+                                gridview.setAdapter(myGridAdapter);
+                            }
+                        } else {
+                            Log.d("Compose", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
 }

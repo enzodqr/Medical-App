@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Agenda.Agenda"></activity>
-        <activity android:name=".Splash_Screen.Splash"></activity>
+        <activity android:name=".Profile.Edit_Profile_Activity"></activity>
+        <activity android:name=".Agenda.Agenda" />
         <activity
             android:name=".Menu.Menu_Activity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -20,10 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile.Profile_Activity" /></application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
+        <activity android:name=".Profile.Profile_Activity" />
+    </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 

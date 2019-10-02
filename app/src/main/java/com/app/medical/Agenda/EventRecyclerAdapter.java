@@ -72,11 +72,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     private void deleteCalendarEvent(String event, String date, String time){
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.deleteEvent(event, date, time, database);
-        dbOpenHelper.close();
-
+        dbOpenHelper = new DBOpenHelper();
+        dbOpenHelper.deleteEvent(event);
     }
 
 }

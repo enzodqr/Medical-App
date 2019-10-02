@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "987272709374-tgo1gqus63safpko3av9kc9b0e6ugq6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.medical",
+            "certificate_hash": "e923f0ed12fc1e05133a18e576f9529539aed92b"
+          }
+        },
+        {
+          "client_id": "987272709374-vt3ltu55ktf09ptuv27bqfq3lk8dv5ra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.medical",
+            "certificate_hash": "118da2e6abfd980e388e68a8c5e857bb4c137dc9"
+          }
+        },
+        {
           "client_id": "987272709374-0e2k3ln5q1qvsk3vdpeskh2u7o9tnse1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
