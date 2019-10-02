@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "987272709374",
+    "firebase_url": "https://medcal-754de.firebaseio.com",
+    "project_id": "medcal-754de",
+    "storage_bucket": "medcal-754de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987272709374:android:6ab37bd1e037dfe9",
+        "android_client_info": {
+          "package_name": "com.app.medical"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987272709374-0e2k3ln5q1qvsk3vdpeskh2u7o9tnse1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.medical",
+            "certificate_hash": "19bedbaa8512ca18e0bf3328fa676f73077807d0"
+          }
+        },
+        {
+          "client_id": "987272709374-7loq3hp4gdmae22daokmv3j8tueic9i4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbo8Ot89Ut29KrpnkxyOX3kPRqUPnsIiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987272709374-7loq3hp4gdmae22daokmv3j8tueic9i4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
