@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.app.medical.DB_Utilities.DB_Utilities;
@@ -33,6 +34,8 @@ public class Edit_Profile_Activity extends AppCompatActivity
     ArrayAdapter<CharSequence> arrayAdapter_blood_type;
     Button save_changes_btn;
     Button cancel_changes_btn;
+
+    ImageButton back_btn;
 
     User_Model user_model = new User_Model();
 
@@ -60,6 +63,8 @@ public class Edit_Profile_Activity extends AppCompatActivity
         save_changes_btn = findViewById(R.id.edit_save);
         cancel_changes_btn = findViewById(R.id.edit_cancel);
 
+        back_btn = findViewById(R.id.edit_back);
+
         arrayAdapter_gender = ArrayAdapter.createFromResource(this, R.array.generos,
                 android.R.layout.simple_spinner_item);
         arrayAdapter_blood_type = ArrayAdapter.createFromResource(this, R.array.tipos_sangres,
@@ -75,6 +80,13 @@ public class Edit_Profile_Activity extends AppCompatActivity
         spinner_blood_type.setOnItemSelectedListener(this);
 
         fill_form();
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return_to_profile();
+            }
+        });
 
         save_changes_btn.setOnClickListener(new View.OnClickListener() {
             @Override

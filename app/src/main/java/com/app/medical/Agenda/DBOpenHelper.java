@@ -33,19 +33,6 @@ public class DBOpenHelper{
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    ArrayList<Events> eventsArrayList = new ArrayList<>();
-
-    Boolean flag = false;
-
-    /*CREACIÓN DE LAS TABLAS*/
-    private static final  String CREATE_EVENTS_TABLE = "create table " + DBStructure.EVENT_TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-            +DBStructure.EVENT +" TEXT, "+ DBStructure.TIME +" TEXT, " + DBStructure.DATE+ " TEXT, "+DBStructure.MONTH +" TEXT, "
-            +DBStructure.YEAR +" TEXT)";
-
-    /*ELIMINAR TABLA*/
-    private static final String DROP_EVENT_TABLE = "DROP TABLE IF EXISTS " + DBStructure.EVENT_TABLE_NAME;
-
-
     public void saveEvent(final String event, final String time,  final String date, final String month, final String year){
 
         firestore.collection(DB_Utilities.CALENDAR + auth.getUid())

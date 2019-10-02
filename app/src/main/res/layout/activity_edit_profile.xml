@@ -1,265 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp">
+    android:background="#FFFFFF"
+    tools:context=".Profile.Edit_Profile_Activity">
 
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/profile_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="55dp"
+        android:background="@drawable/profile_grad">
 
-        <TextView
-            android:id="@+id/edit_title_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_nombre"/>
+        <ImageButton
+            android:id="@+id/edit_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/icon_left_arrow"
+            android:scaleType="fitCenter" />
 
-        <EditText
-            android:id="@+id/edit_nombre"
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@+id/profile_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_nombre" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
 
-    <!-- ####################################################################################### -->
+                <TextView
+                    android:id="@+id/edit_title_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_nombre"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/edit_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_nombre" />
 
-        <TextView
-            android:id="@+id/edit_title_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_identificación"/>
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/edit_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_identificación" />
+            <!-- ####################################################################################### -->
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <!-- ####################################################################################### -->
+                <TextView
+                    android:id="@+id/edit_title_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_identificación"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/edit_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_identificación" />
 
-        <TextView
-            android:id="@+id/edit_title_edad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_edad"/>
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/edit_edad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_edad" />
+            <!-- ####################################################################################### -->
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <!-- ####################################################################################### -->
+                <TextView
+                    android:id="@+id/edit_title_edad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_edad"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/edit_edad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_edad" />
 
-        <TextView
-            android:id="@+id/edit_title_genero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_genero"/>
+            </LinearLayout>
 
-        <Spinner
-            android:id="@+id/edit_genero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="20sp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:textColor="@color/profile_txt_body" />
+            <!-- ####################################################################################### -->
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit_title_genero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_genero"/>
 
-        <TextView
-            android:id="@+id/edit_title_telefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_teléfono"/>
+                <Spinner
+                    android:id="@+id/edit_genero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20sp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/profile_txt_body" />
 
-        <EditText
-            android:id="@+id/edit_telefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_teléfono" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit_title_telefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_teléfono"/>
 
-        <TextView
-            android:id="@+id/edit_title_contacto_emergencia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_contacto_emergencia"/>
+                <EditText
+                    android:id="@+id/edit_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_teléfono" />
 
-        <EditText
-            android:id="@+id/edit_contacto_emergencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_contacto_emergencia" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit_title_contacto_emergencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_contacto_emergencia"/>
 
-        <TextView
-            android:id="@+id/edit_title_direccion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_dirección"/>
+                <EditText
+                    android:id="@+id/edit_contacto_emergencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_contacto_emergencia" />
 
-        <EditText
-            android:id="@+id/edit_direccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_dirección" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit_title_direccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_dirección"/>
 
-        <TextView
-            android:id="@+id/edit_title_tipo_sangre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_tipo_sangre"/>
+                <EditText
+                    android:id="@+id/edit_direccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_dirección" />
 
-        <Spinner
-            android:id="@+id/edit_tipo_sangre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="20sp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:textColor="@color/profile_txt_body"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/edit_title_tipo_sangre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_tipo_sangre"/>
 
-        <TextView
-            android:id="@+id/edit_title_nacionalidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/profile_txt_header"
-            android:textSize="13sp"
-            android:text="@string/str_nacionalidad"/>
+                <Spinner
+                    android:id="@+id/edit_tipo_sangre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20sp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/profile_txt_body"/>
 
-        <EditText
-            android:id="@+id/edit_nacionalidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:textSize="18sp"
-            android:textColor="@color/profile_txt_body"
-            android:text="@string/str_nacionalidad" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/edit_title_nacionalidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/profile_txt_header"
+                    android:textSize="13sp"
+                    android:text="@string/str_nacionalidad"/>
 
-        <Button
-            android:id="@+id/edit_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/str_cancelar" />
+                <EditText
+                    android:id="@+id/edit_nacionalidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:textSize="18sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/str_nacionalidad" />
 
-        <Button
-            android:id="@+id/edit_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/str_guardar" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/edit_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/str_cancelar" />
+
+                <Button
+                    android:id="@+id/edit_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/str_guardar" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
 
 
-</LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
+
+
+</RelativeLayout>
