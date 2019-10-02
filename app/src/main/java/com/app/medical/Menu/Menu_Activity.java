@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +31,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -198,7 +196,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                         map.put(DB_Utilities.USER_PHONE, 0);
                         map.put(DB_Utilities.USER_BLOOD_TYPE, "");
                         map.put(DB_Utilities.USER_ADDRESS,"");
-                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, "");
+                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, 0);
                         map.put(DB_Utilities.USER_NATIONALITY, "");
 
                         firestore.collection(DB_Utilities.USERS).document(user_uid).set(map).
@@ -256,5 +254,4 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             }
         });
     }
-
 }
