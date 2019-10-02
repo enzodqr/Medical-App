@@ -3,10 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFF</color>
+    <color name="grey">#FF4E4D4D</color>
 
     <!-- Profile's colors -->
 
-    <color name="profile_labels">#2F7092</color>
+    <color name="profile_labels">#003862</color>
     <color name="profile_txt_header">#3797CF</color>
     <color name="profile_circle">#80FFFF</color>
     <color name="profile_circle_border">#FFFFFF</color>
