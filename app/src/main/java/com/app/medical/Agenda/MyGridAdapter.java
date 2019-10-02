@@ -53,7 +53,7 @@ public class MyGridAdapter extends ArrayAdapter {
            view = inflater.inflate(R.layout.single_cell_layout, parent, false);
         }
         if(display_month == current_month && display_year == current_year){
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.profile_labels));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.calendarGreen));
         }
         else {
             view.setBackgroundColor(getContext().getResources().getColor(R.color.grey));

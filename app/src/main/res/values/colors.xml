@@ -5,6 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFF</color>
     <color name="grey">#FF4E4D4D</color>
+    <color name="darkGreen">#033300</color>
+    <color name="calendarGreen">#166812</color>
 
     <!-- Profile's colors -->
 

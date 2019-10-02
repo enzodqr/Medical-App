@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/profile_txt_header"
+    android:background="@color/calendarGreen"
     android:orientation="vertical">
 
     <EditText
@@ -50,7 +50,7 @@
         android:background="@android:color/white"
         android:text="Agregar Evento"
         android:textAllCaps="false"
-        android:textColor="@color/profile_labels"
+        android:textColor="@color/calendarGreen"
         android:textStyle="bold" />
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.AttributeSet;
@@ -81,6 +82,7 @@ public class CustomCalendarView extends LinearLayout {
                 setUpCalendar();
             }
         });
+
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -228,7 +230,6 @@ public class CustomCalendarView extends LinearLayout {
         while (dates.size() < MAX_CALENDAR_DAYS){
             dates.add(month_calendar.getTime());
             month_calendar.add(Calendar.DAY_OF_MONTH, 1);
-
         }
 
         myGridAdapter = new MyGridAdapter(context,dates,calendar,eventsList);
