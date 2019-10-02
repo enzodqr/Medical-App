@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,27 +31,35 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Menu_Activity extends AppCompatActivity  implements View.OnClickListener {
+    /* Display the menu for all the app's main functions */
 
-    Button sign_out_btn;
+
+    /* Menu's buttons */
     Button profile_btn;
-    Button sos_btn;
-    MediaPlayer mediaPlayer; //para la reproducción de sonidos
     Button agenda_btn;
+    Button sos_btn;
+    Button sign_out_btn;
 
-    String user_id;
+    /* Alarm (Me cago en lo ruidoso que es) */
+    MediaPlayer mediaPlayer; //para la reproducción de sonidos
 
-    // Firebase variables
+    /* Firebase variables*/
+    FirebaseAuth auth;
+    FirebaseFirestore firestore;
+
+    /* Providers and signIn key */
     private static final int RC_SIGN_IN = 7117;
     List<AuthUI.IdpConfig> providers;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    /* User data variables */
+    String user_uid;
+    String user_name;
+
 
 
     @SuppressLint("WrongConstant")
@@ -58,6 +67,26 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+
+        profile_btn = findViewById(R.id.btn_perfil);
+        sign_out_btn = findViewById(R.id.sign_out_btn);
+        agenda_btn = findViewById(R.id.btn_agenda);
+        sos_btn = findViewById(R.id.btn_sos);
+
+
+        agenda_btn.setOnClickListener(this);
+        sign_out_btn.setOnClickListener(this);
+        profile_btn.setOnClickListener(this);
+        sos_btn.setOnClickListener(this);
+
+
+        mediaPlayer = MediaPlayer.create(Menu_Activity.this, R.raw.alarma);
+
+
+        auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
 
         // Array of the signIn providers
         providers = Arrays.asList(
@@ -68,35 +97,21 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                 // new AuthUI.IdpConfig.FacebookBuilder().build()
         );
 
-        mediaPlayer = MediaPlayer.create(Menu_Activity.this, R.raw.alarma);
-
-        profile_btn = findViewById(R.id.btn_perfil);
-        profile_btn.setOnClickListener(this);
-        sign_out_btn = findViewById(R.id.sign_out_btn);
-        sign_out_btn.setOnClickListener(this);
-        agenda_btn = findViewById(R.id.btn_agenda);
-        agenda_btn.setOnClickListener(this);
-        sos_btn = findViewById(R.id.btn_sos);
-        sos_btn.setOnClickListener(this);
-
 
         // Checks if a user already logged in
-        if (auth.getCurrentUser() != null) {
-            user_id = user.getUid();
-            Toast.makeText(Menu_Activity.this, "Contacto: " + user_id,
-                    Toast.LENGTH_SHORT).show();
-        } else {
+        if (auth.getCurrentUser() == null) {
             show_signIn_options();
         }
 
+
     }
 
-    // Menu button's functionality
-    // Ordered by menu display order
+
     @Override
     public void onClick(View view) {
 
-        // Gets the button id
+        /* Menu button's functionality, ordered by menu display order */
+
         int id = view.getId();
 
         if(id == R.id.btn_perfil){
@@ -110,7 +125,26 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if(resultCode == RESULT_OK){
+                add_user_db();
+                Log.i("SignIn Success","Ingreso Exitoso");
+
+            } else {
+                Log.e("SignIn Error", response.getError().getMessage());
+            }
+        }
+    }
+
+
     private void show_signIn_options() {
+        /* LogIn layout settings */
         AuthMethodPickerLayout customLayout = new AuthMethodPickerLayout.
                 Builder(R.layout.activity_sign_in).
                 setGoogleButtonId(R.id.Google_btn).
@@ -118,9 +152,10 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                 setPhoneButtonId(R.id.Phone_btn).
                 build();
 
+        /* Login module settings */
         startActivityForResult(
                 AuthUI.getInstance().
-                        createSignInIntentBuilder(). // layout style
+                        createSignInIntentBuilder().
                         setAvailableProviders(providers).
                         setIsSmartLockEnabled(false). // Disable smart lock for testing and development
                         setTheme(R.style.Firebase_theme).
@@ -130,31 +165,18 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         );
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-            if(resultCode == RESULT_OK){
-                add_user_db();
-            } else {
-                Toast.makeText(this, ""+response.getError().getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
 
-    // Checks if the user exists in the db
-    // if not the user is added else it does nothing
+
+    /* Checks if the user exists in the db, if not the user is added else it does nothing*/
     private void add_user_db(){
 
-        // Each document name is equal to the user uid
+        user_uid = auth.getUid();
+        user_name = auth.getCurrentUser().getDisplayName();
 
-        // Tells which document whe want to check
+        // Collection and document that is going to be used
         DocumentReference documentReference = firestore.collection(DB_Utilities.USERS).
-                document(user.getUid());
+                document(user_uid);
 
         // Asks if the document exist
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -163,41 +185,35 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                 if(task.isSuccessful()){
                     DocumentSnapshot snapshot = task.getResult();
                     if(snapshot.exists()){
-                        Toast.makeText(Menu_Activity.this, "Document exists!",
-                                Toast.LENGTH_LONG).show();
+                        Log.i("Test","Existe usuario!");
+
                     } else {
-
-
                         Map<String, Object> map = new HashMap<>();
-                        map.put(DB_Utilities.USER_NAME, user.getDisplayName());
+                        map.put(DB_Utilities.USER_NAME, user_name);
                         map.put(DB_Utilities.USER_ID, 0);
                         map.put(DB_Utilities.USER_AGE, 0);
                         map.put(DB_Utilities.USER_GENDER, "");
                         map.put(DB_Utilities.USER_PHONE, 0);
                         map.put(DB_Utilities.USER_BLOOD_TYPE, "");
                         map.put(DB_Utilities.USER_ADDRESS,"");
-                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, "");
+                        map.put(DB_Utilities.USER_EMERGENCY_CONTACT, 0);
                         map.put(DB_Utilities.USER_NATIONALITY, "");
 
-
-                        firestore.collection(DB_Utilities.USERS).document(user.getUid()).set(map).
+                        firestore.collection(DB_Utilities.USERS).document(user_uid).set(map).
                                 addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Menu_Activity.this, "User addedd!",
-                                                Toast.LENGTH_LONG).show();
+                                        Log.i("Test","Usuario agregádo!");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Menu_Activity.this, "Error!" + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
+                                Log.e("SignIn Error", e.getMessage());
                             }
                         });
                     }
                 } else {
-                    Toast.makeText(Menu_Activity.this, "Failed: !" + task.getException(),
-                            Toast.LENGTH_LONG).show();
+                    Log.e("SignIn Error", task.getException().getMessage());
                 }
             }
         });
@@ -208,7 +224,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
 
     private void go_to_profile(){
         Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
-        intent.putExtra("uid", user_id);
+        intent.putExtra("uid", user_uid);
         startActivity(intent);
         finish();
     }
@@ -238,5 +254,4 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             }
         });
     }
-
 }

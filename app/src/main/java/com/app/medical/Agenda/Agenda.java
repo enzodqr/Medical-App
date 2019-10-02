@@ -29,10 +29,10 @@ public class Agenda extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
-
         customCalendarView = findViewById(R.id.custom_calendar_view);
 
     }
 
 
 }
+

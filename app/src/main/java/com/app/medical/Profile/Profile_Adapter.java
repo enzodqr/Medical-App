@@ -12,9 +12,10 @@ import com.app.medical.R;
 
 import java.util.ArrayList;
 
-public class Profile_Adapter extends RecyclerView.Adapter<Profile_Adapter.ViewHolderData> {
+public class Profile_Adapter extends RecyclerView.Adapter<Profile_Adapter.ViewHolderData>{
 
     ArrayList<Profile_Model> user_data;
+
 
     public Profile_Adapter(ArrayList<Profile_Model> user_data) {
         this.user_data = user_data;
@@ -24,6 +25,8 @@ public class Profile_Adapter extends RecyclerView.Adapter<Profile_Adapter.ViewHo
     @Override
     public ViewHolderData onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_item_list, null, false);
+
+
         return new ViewHolderData(view);
     }
 
@@ -37,6 +40,7 @@ public class Profile_Adapter extends RecyclerView.Adapter<Profile_Adapter.ViewHo
     public int getItemCount() {
         return user_data.size();
     }
+
 
     public class ViewHolderData extends RecyclerView.ViewHolder {
 
