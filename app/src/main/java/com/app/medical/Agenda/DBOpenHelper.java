@@ -5,11 +5,37 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class DBOpenHelper extends SQLiteOpenHelper {
+import com.app.medical.DB_Utilities.DB_Utilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class DBOpenHelper{
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    ArrayList<Events> eventsArrayList = new ArrayList<>();
+
+    Boolean flag = false;
 
     /*CREACIÓN DE LAS TABLAS*/
     private static final  String CREATE_EVENTS_TABLE = "create table " + DBStructure.EVENT_TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -20,51 +46,64 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DROP_EVENT_TABLE = "DROP TABLE IF EXISTS " + DBStructure.EVENT_TABLE_NAME;
 
 
-    public DBOpenHelper(@Nullable Context context) {
-        super(context, DBStructure.DB_NAME, null, DBStructure.DB_Version);
+    public void saveEvent(final String event, final String time,  final String date, final String month, final String year){
+
+        firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
+                .document(event).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot snapshot = task.getResult();
+                            if(!snapshot.exists()){
+
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("Event_Name", event);
+                                map.put("Time", time);
+                                map.put("Date", date);
+                                map.put("Month", month);
+                                map.put("Year", year);
+
+                                firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
+                                        .document(event)
+                                        .set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Event", "Event Added");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("Event", "Event wasn't Added");
+                                    }
+                                });
+                            } else {
+                                Log.d("Event", "Event already exist");
+                            }
+                        } else {
+                            Log.d("Event", "Event Failed to create");
+                        }
+                    }
+                });
+
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_EVENTS_TABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(DROP_EVENT_TABLE);
-        onCreate(db);
-    }
-
-    public void saveEvent(String event, String time, String date, String month, String year, SQLiteDatabase database){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBStructure.EVENT,event);
-        contentValues.put(DBStructure.TIME, time);
-        contentValues.put(DBStructure.DATE, date);
-        contentValues.put(DBStructure.MONTH, month);
-        contentValues.put(DBStructure.YEAR, year);
-        database.insert(DBStructure.EVENT_TABLE_NAME, null, contentValues);
-    }
-
-    public Cursor readEvents(String date, SQLiteDatabase database){
-        String[] Projections = {DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH, DBStructure.YEAR};
-        String Selection = DBStructure.DATE + "=?";
-        String[] SelectionArgs = {date};
-
-        return database.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs, null, null, null);
-    }
-
-    public Cursor readEventsXMonths(String month, String year, SQLiteDatabase database){
-        String[] Projections = {DBStructure.EVENT, DBStructure.TIME, DBStructure.DATE, DBStructure.MONTH, DBStructure.YEAR};
-        String Selection = DBStructure.MONTH + "=? and " + DBStructure.YEAR + "=?";
-        String[] SelectionArgs = {month,year};
-
-        return database.query(DBStructure.EVENT_TABLE_NAME, Projections, Selection, SelectionArgs, null, null, null);
-    }
-
-    public void deleteEvent(String event, String date, String time, SQLiteDatabase database){
-        String selection = DBStructure.EVENT + "=? and "+DBStructure.DATE+ "=? and "+DBStructure.TIME+"=?";
-        String[] selectionArg = {event, date, time};
-        database.delete(DBStructure.EVENT_TABLE_NAME, selection, selectionArg);
+    public void deleteEvent(String event){
+        firestore.collection(DB_Utilities.CALENDAR + auth.getUid())
+                .document(event)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Delete Event", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Delete Event", "Error deleting document", e);
+                    }
+                });
     }
 
 }

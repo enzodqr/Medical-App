@@ -4,6 +4,7 @@ public class DB_Utilities {
 
     // Collections name
     public static final String USERS = "users";
+    public static final String CALENDAR = "calendar-";
 
     // Document data
     public static final String USER_ID = "id";
