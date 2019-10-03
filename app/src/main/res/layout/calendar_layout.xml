@@ -7,10 +7,11 @@
     android:id="@+id/activity_custom_calendar"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@drawable/bg1"
+        android:layout_height="47dp"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
@@ -20,8 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:background="@drawable/prev" />
+            android:layout_margin="5dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/prev"
+            android:tint="#15D400" />
 
         <TextView
             android:id="@+id/txt_curDate"
@@ -31,7 +34,7 @@
             android:layout_weight="3"
             android:gravity="center"
             android:text="Fecha Actual"
-            android:textColor="#fff"
+            android:textColor="@color/green"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -40,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_gravity="right"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/next" />
 
 
@@ -49,7 +53,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:background="@drawable/bg1"
+        android:background="@drawable/agenda_bg_gradient"
         android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
@@ -59,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@color/profile_labels"
+            android:background="@color/green"
             android:gravity="center"
             android:text="Dom"
             android:textColor="#FFFFFF"
@@ -73,7 +77,7 @@
             android:background="#FFFFFF"
             android:gravity="center"
             android:text="Lun"
-            android:textColor="@color/profile_labels"
+            android:textColor="@color/green"
             android:textStyle="bold" />
 
         <TextView
@@ -81,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@color/profile_labels"
+            android:background="@color/green"
             android:gravity="center"
             android:text="Mar"
             android:textColor="#FFFFFF"
@@ -95,7 +99,7 @@
             android:background="#FFFFFF"
             android:gravity="center"
             android:text="Mie"
-            android:textColor="@color/profile_labels"
+            android:textColor="@color/green"
             android:textStyle="bold" />
 
         <TextView
@@ -103,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@color/profile_labels"
+            android:background="@color/green"
             android:gravity="center"
             android:text="Jue"
             android:textColor="#FFFFFF"
@@ -117,7 +121,7 @@
             android:background="#FFFFFF"
             android:gravity="center"
             android:text="Vie"
-            android:textColor="@color/profile_labels"
+            android:textColor="@color/green"
             android:textStyle="bold" />
 
         <TextView
@@ -125,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@color/profile_labels"
+            android:background="@color/green"
             android:gravity="center"
             android:text="Sab"
             android:textColor="#FFFFFF"
@@ -135,10 +139,45 @@
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="365dp"
         android:numColumns="7">
 
     </GridView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/calendar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/agenda_gradient"
+            android:onClick="onClick"
+            android:text="Calendario"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/events_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/agenda_gradient"
+            android:onClick="onClick"
+            android:text="Eventos"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
 </LinearLayout>
