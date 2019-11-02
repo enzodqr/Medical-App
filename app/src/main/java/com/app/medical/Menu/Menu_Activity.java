@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.medical.Agenda.Agenda;
+import com.app.medical.Medicinas.Medicinas;
 import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.R;
 import com.app.medical.DB_Utilities.DB_Utilities;
@@ -44,6 +45,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     Button agenda_btn;
     Button sos_btn;
     Button sign_out_btn;
+    Button medicina_btn;
 
     /* Alarm (Me cago en lo ruidoso que es) */
     MediaPlayer mediaPlayer; //para la reproducción de sonidos
@@ -73,12 +75,14 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         sign_out_btn = findViewById(R.id.sign_out_btn);
         agenda_btn = findViewById(R.id.btn_agenda);
         sos_btn = findViewById(R.id.btn_sos);
+        medicina_btn = findViewById(R.id.btn_medicinas);
 
 
         agenda_btn.setOnClickListener(this);
         sign_out_btn.setOnClickListener(this);
         profile_btn.setOnClickListener(this);
         sos_btn.setOnClickListener(this);
+        medicina_btn.setOnClickListener(this);
 
 
         mediaPlayer = MediaPlayer.create(Menu_Activity.this, R.raw.alarma);
@@ -118,6 +122,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             go_to_profile();
         } else if(id == R.id.btn_agenda){
             startActivity(new Intent(getApplicationContext(), Agenda.class));
+        } else if(id == R.id.btn_medicinas){
+            startActivity(new Intent(getApplicationContext(), Medicinas.class));
         } else if (id == R.id.btn_sos){
             media_player();
         } else if(id == R.id.sign_out_btn) {
