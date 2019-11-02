@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.app.medical.R;
 
@@ -35,6 +36,14 @@ public class Medicinas extends AppCompatActivity {
         rellenarLista();
 
         Medicina_Adapter adapter = new Medicina_Adapter(listDatos);
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Medicinas.this, "Presionado: "+listDatos.get(recycler.getChildAdapterPosition(view)).getNombre()+" ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         recycler.setAdapter(adapter);
 
 
