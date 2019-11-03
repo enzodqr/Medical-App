@@ -1,8 +1,10 @@
 package com.app.medical.Agenda;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,8 @@ public class Agenda extends AppCompatActivity
     Calendar_fragment calendar_fragment;
     Events_fragment events_fragment;
 
+    ImageButton back_btn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,15 @@ public class Agenda extends AppCompatActivity
 
         calendar_fragment = new Calendar_fragment();
         events_fragment = new Events_fragment();
+
+        back_btn = findViewById(R.id.calendar_back);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return_to_menu();
+            }
+        });
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragments_agenda, calendar_fragment).commit();
     }
@@ -67,6 +80,11 @@ public class Agenda extends AppCompatActivity
         }
 
         fragmentTransaction.commit();
+    }
+
+    private void return_to_menu(){
+        startActivity(new Intent(getApplicationContext(), Menu_Activity.class));
+        finish();
     }
 }
 
