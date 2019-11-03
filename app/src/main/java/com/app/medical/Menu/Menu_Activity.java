@@ -3,11 +3,15 @@ package com.app.medical.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -74,8 +78,10 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         profile_btn = findViewById(R.id.btn_perfil);
         sign_out_btn = findViewById(R.id.sign_out_btn);
         agenda_btn = findViewById(R.id.btn_agenda);
-        sos_btn = findViewById(R.id.btn_sos);
         medicina_btn = findViewById(R.id.btn_medicinas);
+
+        sos_btn = findViewById(R.id.btn_sos);
+
 
 
         agenda_btn.setOnClickListener(this);
@@ -111,6 +117,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     }
 
 
+
     @Override
     public void onClick(View view) {
 
@@ -125,7 +132,16 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         } else if(id == R.id.btn_medicinas){
             startActivity(new Intent(getApplicationContext(), Medicinas.class));
         } else if (id == R.id.btn_sos){
-            media_player();
+           media_player();
+            if(ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){ActivityCompat.requestPermissions(Menu_Activity.this, new String[]
+                    {
+                            Manifest.permission.SEND_SMS,}, 1000);
+
+            }else{
+
+            }
+            enviarMensaje("85035487","Emergencia!!!");
         } else if(id == R.id.sign_out_btn) {
             sign_out_db();
         }
@@ -238,7 +254,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             mediaPlayer.pause();
         }else{
             mediaPlayer.start();
-            Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -256,5 +272,21 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /* sos
+    * id =btn_sos */
+
+    private void enviarMensaje(String numero, String mensaje){
+        try{
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(numero, null, mensaje, null, null);
+            Toast.makeText(getApplicationContext(), "Mensaje enviado", Toast.LENGTH_LONG).show();
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Mensaje no enviado", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
     }
 }
