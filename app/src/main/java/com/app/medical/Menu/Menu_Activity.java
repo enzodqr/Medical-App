@@ -226,11 +226,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     }
 
 
-
-
     private void go_to_profile(){
         Intent intent = new Intent(getApplicationContext(), Profile_Activity.class);
-        intent.putExtra("uid", user_uid);
         startActivity(intent);
         finish();
     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Medicine.MedicineInfo">
+    tools:context=".Medicinas.MedicineInfo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:background="@drawable/medicine_grad">
 
         <ImageButton
-            android:id="@+id/edit_back"
+            android:id="@+id/info_medicine_back"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
@@ -52,11 +52,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_name"/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_name"
                     android:background="@null"/>
 
@@ -75,10 +75,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_dosis"/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_dosis"
                     android:background="@null"/>
 
@@ -97,11 +98,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_periodo"/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_periodo"
                     android:background="@null"/>
 
@@ -120,11 +121,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_uso"/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_uso"
                     android:background="@null"/>
 
@@ -143,10 +144,13 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_presentacion"/>
 
-                <Spinner
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/presentaciones"/>
+                    android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
+                    android:text="@string/medicine_presentacion"
+                    android:background="@null"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -163,11 +167,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_vencimiento"/>
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
                     android:textSize="20sp"
+                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_vencimiento"
                     android:background="@null"/>
 

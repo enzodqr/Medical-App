@@ -1,7 +1,9 @@
 package com.app.medical.Medicinas;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.app.medical.Menu.Menu_Activity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -10,7 +12,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.app.medical.R;
@@ -22,16 +26,25 @@ public class Medicinas extends AppCompatActivity {
     ArrayList<Medicina_model> listDatos;
     RecyclerView recycler;
 
+    ImageButton back_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicinas);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         listDatos = new ArrayList<>();
         recycler = (RecyclerView) findViewById(R.id.recycler_medicinas);
         recycler.setLayoutManager(new LinearLayoutManager(this));
+
+        back_btn = findViewById(R.id.medicine_back);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                go_to_menu();
+            }
+        });
 
         rellenarLista();
 
@@ -40,6 +53,7 @@ public class Medicinas extends AppCompatActivity {
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                go_to_medicine();
                 Toast.makeText(Medicinas.this, "Presionado: "+listDatos.get(recycler.getChildAdapterPosition(view)).getNombre()+" ", Toast.LENGTH_SHORT).show();
             }
         });
@@ -66,6 +80,30 @@ public class Medicinas extends AppCompatActivity {
         listDatos.add(new Medicina_model("Medicina 6","Dosis 6",R.drawable.baseline_account_circle_white_18dp));
         listDatos.add(new Medicina_model("Medicina 7","Dosis 7",R.drawable.baseline_account_circle_white_18dp));
         listDatos.add(new Medicina_model("Medicina 8","Dosis 8",R.drawable.baseline_account_circle_white_18dp));
+    }
+
+    private void go_to_medicine(){
+        Intent intent = new Intent(getApplicationContext(), MedicineInfo.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void go_to_menu(){
+        Intent intent = new Intent(getApplicationContext(), Menu_Activity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /*
+     *   Back functionality of androids interface's back btn
+     * */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            go_to_menu();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
