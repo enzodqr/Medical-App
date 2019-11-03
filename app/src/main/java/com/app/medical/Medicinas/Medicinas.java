@@ -72,14 +72,15 @@ public class Medicinas extends AppCompatActivity {
     }
 
     private void rellenarLista() {
-        listDatos.add(new Medicina_model("Medicina 1","Dosis 1",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 2","Dosis 2",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 3","Dosis 3",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 4","Dosis 4",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 5","Dosis 5",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 6","Dosis 6",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 7","Dosis 7",R.drawable.baseline_account_circle_white_18dp));
-        listDatos.add(new Medicina_model("Medicina 8","Dosis 8",R.drawable.baseline_account_circle_white_18dp));
+        listDatos.add(new Medicina_model("Inyección","Dosis 1",R.drawable.inyeccion));
+        listDatos.add(new Medicina_model("Jarabe","Dosis 2",R.drawable.jarabe));
+        listDatos.add(new Medicina_model("Pastillas","Dosis 3",R.drawable.pills));
+        listDatos.add(new Medicina_model("Inyección","Dosis 1",R.drawable.inyeccion));
+        listDatos.add(new Medicina_model("Jarabe","Dosis 2",R.drawable.jarabe));
+        listDatos.add(new Medicina_model("Pastillas","Dosis 3",R.drawable.pills));
+        listDatos.add(new Medicina_model("Inyección","Dosis 1",R.drawable.inyeccion));
+        listDatos.add(new Medicina_model("Jarabe","Dosis 2",R.drawable.jarabe));
+        listDatos.add(new Medicina_model("Pastillas","Dosis 3",R.drawable.pills));
     }
 
     private void go_to_medicine(){
