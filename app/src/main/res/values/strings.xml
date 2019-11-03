@@ -18,6 +18,8 @@
     <string name="str_nacionalidad">Nacionalidad</string>
     <string name="str_guardar">Guardar</string>
     <string name="str_cancelar">Cancelar</string>
+    <string name="str_borrar">Borrar</string>
+    <string name="str_editar">Editar</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -27,6 +29,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="medicine_name">Medicina</string>
+    <string name="medicine_dosis">Dosis</string>
+    <string name="medicine_presentacion">Presentación</string>
+    <string name="medicine_vencimiento">Fecha vencimiento</string>
+    <string name="medicine_periodo">Período</string>
+    <string name="medicine_uso">Uso del medicamento</string>
+
     <string-array name="generos">
         <item>Masculino</item>
         <item>Femenino</item>
@@ -41,6 +50,15 @@
         <item>AB-</item>
         <item>O+</item>
         <item>O-</item>
+    </string-array>
+
+    <string-array name="presentaciones">
+        <item>Presentación</item>
+        <item>Pastilla</item>
+        <item>Capsula</item>
+        <item>Solución</item>
+        <item>Inyectable</item>
+        <item>Crema</item>
     </string-array>
 
 </resources>
