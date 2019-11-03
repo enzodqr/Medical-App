@@ -18,5 +18,7 @@
     <color name="profile_name">#FFFFFF</color>
     <color name="profile_txt_body">#000000</color>
     <color name="profile_bar">#E5E5E5</color>
+    <color name="medicine_btn_color">#9A4AD4</color>
+    <color name="medicine_line">#979797</color>
 
 </resources>
