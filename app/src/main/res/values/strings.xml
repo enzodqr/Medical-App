@@ -35,7 +35,7 @@
     <string name="medicine_vencimiento">Fecha vencimiento</string>
     <string name="medicine_periodo">Período</string>
     <string name="medicine_uso">Uso del medicamento</string>
-
+    <string name="title_activity_medicinas">Medicinas</string>
     <string-array name="generos">
         <item>Masculino</item>
         <item>Femenino</item>
