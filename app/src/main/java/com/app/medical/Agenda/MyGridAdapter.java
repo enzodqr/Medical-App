@@ -53,15 +53,15 @@ public class MyGridAdapter extends ArrayAdapter {
            view = inflater.inflate(R.layout.single_cell_layout, parent, false);
         }
         if(display_month == current_month && display_year == current_year){
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.profile_txt_body));
         }
         else {
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.grey));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.light_grey));
         }
 
         TextView day_number = view.findViewById(R.id.calendar_day);
         day_number.setText(String.valueOf(day_no));
-        day_number.setTextColor(getContext().getResources().getColor(R.color.green));
+        day_number.setTextColor(getContext().getResources().getColor(R.color.white));
         TextView event_number = view.findViewById(R.id.events_id);
 
         Calendar event_calendar = Calendar.getInstance();
@@ -73,6 +73,7 @@ public class MyGridAdapter extends ArrayAdapter {
                 arrayList.add(events.get(i).getEVENT());
                 event_number.setText("°");
                 event_number.setTextColor(getContext().getResources().getColor(R.color.green));
+                day_number.setTextColor(getContext().getResources().getColor(R.color.text_green));
             }
         }
         return view;

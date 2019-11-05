@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
-    <color name="grey">#FF4E4D4D</color>
+    <color name="grey">#4E4D4D</color>
     <color name="green">#09810D</color>
+    <color name="light_grey">#FF706E6E</color>
+    <color name="text_green">#02CF0A</color>
 
     <!-- Profile's colors -->
 

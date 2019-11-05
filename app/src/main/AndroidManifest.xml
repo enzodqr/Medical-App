@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Medicinas.EditMedicineActivity"></activity>
         <activity android:name=".Medicinas.AddMedicineActivity" />
+        <activity android:name=".Alertas.NuevaAlarma"></activity>
         <activity android:name=".Medicinas.MedicineInfo" />
         <activity
             android:name=".Medicinas.Medicinas"
@@ -35,6 +36,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".Profile.Profile_Activity" />
+        <receiver android:name=".Alertas.AlarmReceiver"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
