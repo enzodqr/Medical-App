@@ -36,6 +36,7 @@
     <string name="medicine_periodo">Período</string>
     <string name="medicine_uso">Uso del medicamento</string>
     <string name="title_activity_medicinas">Medicinas</string>
+    <string name="no_medicine_message">No hay medicamentos</string>
     <string-array name="generos">
         <item>Masculino</item>
         <item>Femenino</item>
