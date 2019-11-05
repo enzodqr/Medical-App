@@ -76,6 +76,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     /* User data variables */
     String user_uid;
     String user_name;
+    String emergency;
 
 
 
@@ -153,9 +154,12 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
 
             }
 
-
+         user_name = auth.getCurrentUser().getDisplayName();
+            //emergency
+            emergency = auth.getCurrentUser().getPhoneNumber();
          // profile_list.add(new Profile_Model(DB_Utilities.TAG_EMERGENCY_CONTACT, String.valueOf(user.getEmergency_contact())));
-            enviarMensaje(String.valueOf(user.getEmergency_contact()), "Emergencia!");
+          //  enviarMensaje(String.valueOf(user.getEmergency_contact()), "Emergencia!" + user_name);
+            enviarMensaje(emergency, "Emergencia!" + user_name);
             media_player();
 
            // user.getEmergency_contact();
