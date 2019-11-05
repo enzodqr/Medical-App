@@ -20,9 +20,12 @@ import android.widget.Toast;
 import com.app.medical.Agenda.Agenda;
 import com.app.medical.Medicinas.Medicinas;
 import com.app.medical.Profile.Profile_Activity;
+import com.app.medical.Profile.Profile_Model;
+import com.app.medical.Profile.User_Model;
 import com.app.medical.R;
 import com.app.medical.DB_Utilities.DB_Utilities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +44,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Menu_Activity extends AppCompatActivity  implements View.OnClickListener {
+
+   /* FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();*/
+  //  User_Model user_model = new User_Model();
+
+    ArrayList<Profile_Model> profile_list;
+    User_Model user;
+
     /* Display the menu for all the app's main functions */
 
 
@@ -132,7 +143,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         } else if(id == R.id.btn_medicinas){
             startActivity(new Intent(getApplicationContext(), Medicinas.class));
         } else if (id == R.id.btn_sos){
-           media_player();
+
             if(ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){ActivityCompat.requestPermissions(Menu_Activity.this, new String[]
                     {
@@ -141,11 +152,15 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             }else{
 
             }
-            //USER_EMERGENCY_CONTACT
-            // DB_Utilities.USER_EMERGENCY_CONTACT, Integer.parseInt(emergency_contact_txt.getText().toString()),
 
 
-            enviarMensaje(DB_Utilities.USER_EMERGENCY_CONTACT,"Emergencia!!!");
+         // profile_list.add(new Profile_Model(DB_Utilities.TAG_EMERGENCY_CONTACT, String.valueOf(user.getEmergency_contact())));
+            enviarMensaje(String.valueOf(user.getEmergency_contact()), "Emergencia!");
+            media_player();
+
+           // user.getEmergency_contact();
+            //Toast.makeText(getApplicationContext(), user.getEmergency_contact(), Toast.LENGTH_LONG).show();
+
         } else if(id == R.id.sign_out_btn) {
             sign_out_db();
         }
