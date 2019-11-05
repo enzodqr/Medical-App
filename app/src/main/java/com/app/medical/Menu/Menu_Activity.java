@@ -3,11 +3,15 @@ package com.app.medical.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +21,12 @@ import com.app.medical.Agenda.Agenda;
 import com.app.medical.Alertas.NuevaAlarma;
 import com.app.medical.Medicinas.Medicinas;
 import com.app.medical.Profile.Profile_Activity;
+import com.app.medical.Profile.Profile_Model;
+import com.app.medical.Profile.User_Model;
 import com.app.medical.R;
 import com.app.medical.DB_Utilities.DB_Utilities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +45,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Menu_Activity extends AppCompatActivity  implements View.OnClickListener {
+
+   /* FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();*/
+  //  User_Model user_model = new User_Model();
+
+    ArrayList<Profile_Model> profile_list;
+    User_Model user;
+
     /* Display the menu for all the app's main functions */
 
 
@@ -63,6 +78,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     /* User data variables */
     String user_uid;
     String user_name;
+    String emergency;
 
 
 
@@ -76,9 +92,11 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         profile_btn = findViewById(R.id.btn_perfil);
         sign_out_btn = findViewById(R.id.sign_out_btn);
         agenda_btn = findViewById(R.id.btn_agenda);
-        sos_btn = findViewById(R.id.btn_sos);
         medicina_btn = findViewById(R.id.btn_medicinas);
         alertas_btn = findViewById(R.id.btn_alertas);
+
+        sos_btn = findViewById(R.id.btn_sos);
+
 
 
         agenda_btn.setOnClickListener(this);
@@ -115,6 +133,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     }
 
 
+
     @Override
     public void onClick(View view) {
 
@@ -131,7 +150,18 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         } else if(id == R.id.btn_alertas) {
             startActivity(new Intent(getApplicationContext(), NuevaAlarma.class));
         } else if (id == R.id.btn_sos){
+
+            if(ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){ActivityCompat.requestPermissions(Menu_Activity.this, new String[]
+                    {
+                            Manifest.permission.SEND_SMS,}, 1000);
+
+            }else{
+
+            }
+
             media_player();
+
         } else if(id == R.id.sign_out_btn) {
             sign_out_db();
         }
@@ -244,7 +274,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             mediaPlayer.pause();
         }else{
             mediaPlayer.start();
-            Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
+            emergency_contact();
+           // Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,6 +291,41 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(Menu_Activity.this, ""+e.getMessage(),
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /* sos
+    * id =btn_sos */
+
+    private void enviarMensaje(String numero, String mensaje){
+        try{
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(numero, null, mensaje, null, null);
+            Toast.makeText(getApplicationContext(), "Mensaje enviado", Toast.LENGTH_LONG).show();
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Mensaje no enviado", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
+    private void emergency_contact(){
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = firestore.
+                collection(DB_Utilities.USERS).document(auth.getUid());
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot snapshot =task.getResult();
+                    emergency = snapshot.get(DB_Utilities.USER_EMERGENCY_CONTACT).toString();
+                    enviarMensaje(emergency, "Emergencia!");
+                }
             }
         });
     }
