@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.app.medical.DB_Utilities.DB_Utilities;
@@ -36,6 +37,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     EditText medicina, dosis, periodo, uso, fecha;
     Spinner presentacion;
     Button guardar, cancelar;
+    ImageButton regresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         fecha = findViewById(R.id.add_med_fecha);
         guardar = findViewById(R.id.btn_add_med_guardar);
         cancelar = findViewById(R.id.btn_add_med_cancelar);
+        regresar = findViewById(R.id.add_medicine_back);
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,14 @@ public class AddMedicineActivity extends AppCompatActivity {
         });
 
         cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel_med();
+
+            }
+        });
+
+        regresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cancel_med();

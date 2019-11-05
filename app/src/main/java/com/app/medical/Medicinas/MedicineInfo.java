@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.app.medical.DB_Utilities.DB_Utilities;
 import com.app.medical.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -37,6 +39,7 @@ public class MedicineInfo extends AppCompatActivity {
 
     TextView medicina, dosis, periodo, uso, fecha, presentacion;
     Button editar, borrar;
+    ImageButton regresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +55,35 @@ public class MedicineInfo extends AppCompatActivity {
         editar = findViewById(R.id.info_med_editar);
         borrar = findViewById(R.id.info_med_borrar);
 
+        regresar = findViewById(R.id.info_med_back);
+
         intent = getIntent();
         nombre_medicina = intent.getExtras().getString("Medicina");
         Log.d("Medicina", nombre_medicina);
 
         get_data();
+
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_medicine();
+            }
+        });
+
+        borrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete_medicine();
+            }
+        });
+
+        regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel_med();
+
+            }
+        });
 
     }
 
@@ -80,6 +107,8 @@ public class MedicineInfo extends AppCompatActivity {
                     list.add(document.get(DB_Utilities.MED_PRESENTACION).toString());
                     list.add(document.get(DB_Utilities.MED_FECHA).toString());
 
+                    set_text(list);
+
                     Log.d("Medicina", "Lista: "+list.toString());
 
                 } else {
@@ -87,5 +116,56 @@ public class MedicineInfo extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void set_text(List<String> list){
+        medicina.setText(list.get(0));
+        dosis.setText(list.get(1));
+        periodo.setText(list.get(2));
+        uso.setText(list.get(3));
+        presentacion.setText(list.get(4));
+        fecha.setText(list.get(5));
+    }
+
+    private void edit_medicine(){
+        Intent intent = new Intent(getApplicationContext(), EditMedicineActivity.class);
+        intent.putExtra("Medicina", nombre_medicina);
+        startActivity(intent);
+        finish();
+    }
+
+    private void delete_medicine(){
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = firestore.
+                collection(DB_Utilities.MEDICINE + auth.getUid()).document(nombre_medicina);
+
+        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("Medicina", "DocumentSnapshot successfully deleted!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Medicina", "DocumentSnapshot successfully deleted!");
+                    }
+                });
+    }
+
+    private void cancel_med(){
+        Intent intent = new Intent(getApplicationContext(), Medicinas.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            cancel_med();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

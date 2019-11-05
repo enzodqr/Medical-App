@@ -13,7 +13,7 @@
         android:background="@drawable/medicine_grad">
 
         <ImageButton
-            android:id="@+id/info_medicine_back"
+            android:id="@+id/info_med_back"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
