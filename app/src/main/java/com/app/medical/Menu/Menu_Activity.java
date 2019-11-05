@@ -141,7 +141,11 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             }else{
 
             }
-            enviarMensaje("85035487","Emergencia!!!");
+            //USER_EMERGENCY_CONTACT
+            // DB_Utilities.USER_EMERGENCY_CONTACT, Integer.parseInt(emergency_contact_txt.getText().toString()),
+
+
+            enviarMensaje(DB_Utilities.USER_EMERGENCY_CONTACT,"Emergencia!!!");
         } else if(id == R.id.sign_out_btn) {
             sign_out_db();
         }
