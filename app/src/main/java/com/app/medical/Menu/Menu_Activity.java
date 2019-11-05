@@ -154,16 +154,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
 
             }
 
-         user_name = auth.getCurrentUser().getDisplayName();
-            //emergency
-            emergency = auth.getCurrentUser().getPhoneNumber();
-         // profile_list.add(new Profile_Model(DB_Utilities.TAG_EMERGENCY_CONTACT, String.valueOf(user.getEmergency_contact())));
-          //  enviarMensaje(String.valueOf(user.getEmergency_contact()), "Emergencia!" + user_name);
-            enviarMensaje(emergency, "Emergencia!" + user_name);
             media_player();
-
-           // user.getEmergency_contact();
-            //Toast.makeText(getApplicationContext(), user.getEmergency_contact(), Toast.LENGTH_LONG).show();
 
         } else if(id == R.id.sign_out_btn) {
             sign_out_db();
@@ -277,6 +268,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             mediaPlayer.pause();
         }else{
             mediaPlayer.start();
+            emergency_contact();
            // Toast.makeText(Menu_Activity.this, "Mensaje Enviado a 'Contacto'", Toast.LENGTH_SHORT).show();
         }
     }
@@ -311,5 +303,24 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             e.printStackTrace();
         }
 
+    }
+
+    private void emergency_contact(){
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = firestore.
+                collection(DB_Utilities.USERS).document(auth.getUid());
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot snapshot =task.getResult();
+                    emergency = snapshot.get(DB_Utilities.USER_EMERGENCY_CONTACT).toString();
+                    enviarMensaje(emergency, "Emergencia!");
+                }
+            }
+        });
     }
 }
