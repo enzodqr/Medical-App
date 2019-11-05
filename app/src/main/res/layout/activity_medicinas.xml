@@ -26,6 +26,14 @@
 
     </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+    <TextView
+        android:id="@+id/medicine_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_medicine_message"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_medicinas"
         android:layout_width="match_parent"
