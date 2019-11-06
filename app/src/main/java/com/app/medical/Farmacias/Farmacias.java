@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.app.medical.Menu.Menu_Activity;
 import com.app.medical.R;
@@ -34,6 +35,15 @@ public class Farmacias extends AppCompatActivity {
         llenarDatos();
 
         Adapter_Farmacia adapter = new Adapter_Farmacia(listDatos);
+        
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Farmacias.this, "Horario Atención "+ listDatos
+                        .get(recycler.getChildAdapterPosition(view)).getNombre()+" ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         recycler.setAdapter(adapter);
 
         btn_back = (ImageButton) findViewById(R.id.farmacia_back);

@@ -14,9 +14,11 @@ import com.app.medical.R;
 
 import java.util.ArrayList;
 
-public class Adapter_Farmacia extends RecyclerView.Adapter<Adapter_Farmacia.ViewHolderDatos> {
+public class Adapter_Farmacia extends RecyclerView.Adapter<Adapter_Farmacia.ViewHolderDatos>
+    implements View.OnClickListener{
 
     ArrayList<Farmacia_Model> listDatos;
+    private View.OnClickListener listener;
 
     public Adapter_Farmacia(ArrayList<Farmacia_Model> listDatos) {
         this.listDatos = listDatos;
@@ -27,6 +29,8 @@ public class Adapter_Farmacia extends RecyclerView.Adapter<Adapter_Farmacia.View
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_list_farmacias, null, false);
+
+        view.setOnClickListener(this);
         return new ViewHolderDatos(view);
     }
 
@@ -40,6 +44,18 @@ public class Adapter_Farmacia extends RecyclerView.Adapter<Adapter_Farmacia.View
     @Override
     public int getItemCount() {
         return listDatos.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener != null){
+            listener.onClick(view);
+        }
+
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
