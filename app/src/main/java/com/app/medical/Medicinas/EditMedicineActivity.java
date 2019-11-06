@@ -12,13 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.app.medical.DB_Utilities.DB_Utilities;
 import com.app.medical.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,49 +28,46 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicineInfo extends AppCompatActivity {
+public class EditMedicineActivity extends AppCompatActivity {
 
-    ImageButton back_btn;
     String nombre_medicina;
     Intent intent;
 
-    TextView medicina, dosis, periodo, uso, fecha, presentacion;
-    Button editar, borrar;
+    EditText medicina, dosis, periodo, uso, fecha;
+    Spinner presentacion;
+    Button guardar, cancelar;
     ImageButton regresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medicine_info);
-
-        medicina = findViewById(R.id.info_med_titulo);
-        dosis = findViewById(R.id.info_med_dosis);
-        periodo = findViewById(R.id.info_med_periodo);
-        uso = findViewById(R.id.info_med_uso);
-        presentacion =  findViewById(R.id.info_med_presentacion);
-        fecha = findViewById(R.id.info_med_fecha);
-        editar = findViewById(R.id.info_med_editar);
-        borrar = findViewById(R.id.info_med_borrar);
-
-        regresar = findViewById(R.id.info_med_back);
+        setContentView(R.layout.activity_edit_medicine);
 
         intent = getIntent();
         nombre_medicina = intent.getExtras().getString("Medicina");
         Log.d("Medicina", nombre_medicina);
 
-        get_data();
+        medicina = findViewById(R.id.edit_med_medicina);
+        dosis = findViewById(R.id.edit_med_dosis);
+        periodo = findViewById(R.id.edit_med_periodo);
+        uso = findViewById(R.id.edit_med_uso);
+        presentacion =  findViewById(R.id.edit_med_presentacion);
+        fecha = findViewById(R.id.edit_med_fecha);
+        guardar = findViewById(R.id.btn_edit_med_guardar);
+        cancelar = findViewById(R.id.btn_edit_med_cancelar);
+        regresar = findViewById(R.id.edit_med_back);
 
-        editar.setOnClickListener(new View.OnClickListener() {
+        guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                edit_medicine();
+                update();
             }
         });
 
-        borrar.setOnClickListener(new View.OnClickListener() {
+        cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                delete_medicine();
+                cancel_med();
             }
         });
 
@@ -85,6 +79,7 @@ public class MedicineInfo extends AppCompatActivity {
             }
         });
 
+        get_data();
     }
 
     private void get_data(){
@@ -123,35 +118,46 @@ public class MedicineInfo extends AppCompatActivity {
         dosis.setText(list.get(1));
         periodo.setText(list.get(2));
         uso.setText(list.get(3));
-        presentacion.setText(list.get(4));
+        presentacion.setSelection(getIndex(presentacion, list.get(4)));
         fecha.setText(list.get(5));
     }
 
-    private void edit_medicine(){
-        Intent intent = new Intent(getApplicationContext(), EditMedicineActivity.class);
-        intent.putExtra("Medicina", nombre_medicina);
-        startActivity(intent);
-        finish();
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
     }
 
-    private void delete_medicine(){
+    private void update(){
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firestore.
                 collection(DB_Utilities.MEDICINE + auth.getUid()).document(nombre_medicina);
 
-        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.update(
+                DB_Utilities.MED_MEDICINA, medicina.getText().toString(),
+                DB_Utilities.MED_DOSIS, dosis.getText().toString(),
+                DB_Utilities.MED_PERIODO, periodo.getText().toString(),
+                DB_Utilities.MED_USO, uso.getText().toString(),
+                DB_Utilities.MED_PRESENTACION, presentacion.getSelectedItem().toString(),
+                DB_Utilities.MED_FECHA, fecha.getText().toString()
+        ).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("Medicina", "DocumentSnapshot successfully deleted!");
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("Message", "Success");
+                } else {
+                    Log.d("Message", "Failed");
+                }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Medicina", "DocumentSnapshot successfully deleted!");
-                    }
-                });
+        });
     }
 
     private void cancel_med(){

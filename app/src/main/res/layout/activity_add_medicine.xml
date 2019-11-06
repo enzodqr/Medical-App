@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Medicinas.MedicineInfo">
+    tools:context=".Medicinas.AddMedicineActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:background="@drawable/medicine_grad">
 
         <ImageButton
-            android:id="@+id/info_med_back"
+            android:id="@+id/add_medicine_back"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
@@ -52,12 +52,12 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_name"/>
 
-                <TextView
-                    android:id="@+id/info_med_titulo"
+                <EditText
+                    android:id="@+id/add_med_medicina"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_name"
                     android:background="@null"/>
 
@@ -76,12 +76,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_dosis"/>
 
-                <TextView
-                    android:id="@+id/info_med_dosis"
+                <EditText
+                    android:id="@+id/add_med_dosis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_dosis"
                     android:background="@null"/>
 
@@ -100,12 +99,12 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_periodo"/>
 
-                <TextView
-                    android:id="@+id/info_med_periodo"
+                <EditText
+                    android:id="@+id/add_med_periodo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_periodo"
                     android:background="@null"/>
 
@@ -124,12 +123,12 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_uso"/>
 
-                <TextView
-                    android:id="@+id/info_med_uso"
+                <EditText
+                    android:id="@+id/add_med_uso"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_uso"
                     android:background="@null"/>
 
@@ -148,14 +147,11 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_presentacion"/>
 
-                <TextView
-                    android:id="@+id/info_med_presentacion"
+                <Spinner
+                    android:id="@+id/add_med_presentacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
-                    android:text="@string/medicine_presentacion"
-                    android:background="@null"/>
+                    android:entries="@array/presentaciones"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -172,12 +168,12 @@
                     android:textSize="16sp"
                     android:text="@string/medicine_vencimiento"/>
 
-                <TextView
-                    android:id="@+id/info_med_fecha"
+                <EditText
+                    android:id="@+id/add_med_fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="date"
                     android:textSize="20sp"
-                    android:textColor="@color/profile_txt_body"
                     android:text="@string/medicine_vencimiento"
                     android:background="@null"/>
 
@@ -200,14 +196,14 @@
 
 
         <Button
-            android:id="@+id/info_med_borrar"
+            android:id="@+id/btn_add_med_cancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/str_borrar"
+            android:text="@string/str_cancelar"
             android:textStyle="bold"
             android:textColor="@color/medicine_btn_color"
-            android:background="@android:color/transparent" />
+            android:background="@drawable/buttom" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -215,14 +211,16 @@
             android:layout_marginBottom="10dp"
             android:background="@color/medicine_line"/>
         <Button
-            android:id="@+id/info_med_editar"
+            android:id="@+id/btn_add_med_guardar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/str_editar"
+            android:text="@string/str_guardar"
             android:textStyle="bold"
             android:textColor="@color/medicine_btn_color"
             android:background="@android:color/transparent"/>
+
+
 
     </LinearLayout>
 

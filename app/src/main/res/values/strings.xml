@@ -39,6 +39,7 @@
     <string name="title_activity_recordatorios">Recordatorios</string>
     <string name="title_activity_alertas">Alertas</string>
 
+    <string name="no_medicine_message">No hay medicamentos</string>
     <string-array name="generos">
         <item>Masculino</item>
         <item>Femenino</item>
