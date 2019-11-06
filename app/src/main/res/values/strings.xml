@@ -36,6 +36,9 @@
     <string name="medicine_periodo">Período</string>
     <string name="medicine_uso">Uso del medicamento</string>
     <string name="title_activity_medicinas">Medicinas</string>
+    <string name="title_activity_recordatorios">Recordatorios</string>
+    <string name="title_activity_alertas">Alertas</string>
+
     <string-array name="generos">
         <item>Masculino</item>
         <item>Femenino</item>
@@ -51,7 +54,6 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
-
     <string-array name="presentaciones">
         <item>Presentación</item>
         <item>Pastilla</item>

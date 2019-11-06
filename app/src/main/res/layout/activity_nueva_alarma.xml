@@ -5,38 +5,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Alertas.NuevaAlarma"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="10dp">
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/nombre_alarma"
+    <RelativeLayout
+        android:id="@+id/alerta_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre del Recordatorio"
-        android:layout_marginBottom="20dp"/>
+        android:layout_height="52dp"
+        android:background="@drawable/alerta_bg_gradient">
 
-    <TimePicker
-        android:id="@+id/alarm_time_picker"
+        <ImageButton
+            android:id="@+id/alerta_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/icon_left_arrow" />
+
+        <TextView
+            android:id="@+id/alerta_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="74dp"
+            android:layout_marginLeft="74dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/alerta_back"
+            android:layout_toRightOf="@+id/alerta_back"
+            android:text="Nueva Alerta"
+            android:textColor="@color/profile_name"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nombre_alarma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:hint="Nombre del Recordatorio"
+            android:textColorHighlight="#00BCD4"
+            android:textColorLink="#00BCD4"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textCursorDrawable="@drawable/alertas_gradient" />
+
+        <TimePicker
+            android:id="@+id/alarm_time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:headerBackground="@drawable/alerta_bg_gradient" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="30dp">
+
         <Button
             android:id="@+id/btn_set_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/alertas_gradient"
             android:text="Recordar"
-            android:layout_marginRight="20dp"/>
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/btn_cancel_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar"/>
+            android:background="@drawable/alertas_gradient"
+            android:text="Cancelar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     </LinearLayout>
 

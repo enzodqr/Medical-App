@@ -12,8 +12,10 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.app.medical.Menu.Menu_Activity;
 import com.app.medical.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NuevaAlarma extends AppCompatActivity implements View.OnClickListener {
@@ -28,7 +30,7 @@ public class NuevaAlarma extends AppCompatActivity implements View.OnClickListen
         //set OnClick Listener
         findViewById(R.id.btn_set_alarm).setOnClickListener(this);
         findViewById(R.id.btn_cancel_alarm).setOnClickListener(this);
-
+        findViewById(R.id.alerta_back).setOnClickListener(this);
     }
 
     @Override
@@ -61,12 +63,18 @@ public class NuevaAlarma extends AppCompatActivity implements View.OnClickListen
 
                 //setAlarm: set(type, milliseconds, intent)
                 alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
-                Toast.makeText(this, "Alarma Guardada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Alarma "+nombreAlarma.getText().toString()+" Guardada", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NuevaAlarma.this, Menu_Activity.class));
                 break;
 
             case R.id.btn_cancel_alarm:
                 alarm.cancel(alarmIntent);
                 Toast.makeText(this, "Alarma Cancelada", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NuevaAlarma.this, Menu_Activity.class));
+                break;
+
+            case R.id.alerta_back:
+                startActivity(new Intent(NuevaAlarma.this, Menu_Activity.class));
                 break;
 
         } //cierre del switch

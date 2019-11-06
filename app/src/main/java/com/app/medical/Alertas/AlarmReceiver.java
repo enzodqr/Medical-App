@@ -23,7 +23,7 @@ public class AlarmReceiver  extends BroadcastReceiver {
         //Prepare Notification
         Notification.Builder builder = new Notification.Builder(context);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("Es Hora!")
+            .setContentTitle("Recuerda!")
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
