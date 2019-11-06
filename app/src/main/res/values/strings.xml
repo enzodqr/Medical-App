@@ -10,7 +10,7 @@
     <string name="str_nombre">Nombre</string>
     <string name="str_identificación">Identificación</string>
     <string name="str_edad">Edad</string>
-    <string name="str_genero">Genero</string>
+    <string name="str_genero">Género</string>
     <string name="str_teléfono">Teléfono</string>
     <string name="str_contacto_emergencia">Contacto de emergencia</string>
     <string name="str_dirección">Dirección</string>
@@ -33,7 +33,7 @@
     <string name="medicine_dosis">Dosis</string>
     <string name="medicine_presentacion">Presentación</string>
     <string name="medicine_vencimiento">Fecha vencimiento</string>
-    <string name="medicine_periodo">Período</string>
+    <string name="medicine_periodo">Periodo</string>
     <string name="medicine_uso">Uso del medicamento</string>
     <string name="title_activity_medicinas">Medicinas</string>
     <string name="title_activity_recordatorios">Recordatorios</string>
@@ -58,7 +58,7 @@
     <string-array name="presentaciones">
         <item>Presentación</item>
         <item>Pastilla</item>
-        <item>Capsula</item>
+        <item>Cápsula</item>
         <item>Solución</item>
         <item>Inyectable</item>
         <item>Crema</item>

@@ -82,8 +82,7 @@ public class Medicinas extends AppCompatActivity {
             }
         });
     }
-
-
+    
     private void go_to_medicine(){
         Intent intent = new Intent(getApplicationContext(), MedicineInfo.class);
         startActivity(intent);
