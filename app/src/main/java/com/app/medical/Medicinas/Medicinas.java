@@ -185,7 +185,7 @@ public class Medicinas extends AppCompatActivity {
     }
 
 
-    private int image (String presentacion){
+    private int image(String presentacion){
         switch (presentacion){
             case "Pastilla":
                 return R.drawable.pills;
@@ -196,7 +196,7 @@ public class Medicinas extends AppCompatActivity {
             case "Inyectable":
                 return R.drawable.inyeccion;
             case "Crema":
-                return R.drawable.inyeccion;
+                return R.drawable.crema;
             default:
                 return R.drawable.pills;
         }

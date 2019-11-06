@@ -74,6 +74,7 @@ public class MedicineInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 delete_medicine();
+                cancel_med();
             }
         });
 
