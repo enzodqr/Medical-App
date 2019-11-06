@@ -4,12 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Farmacias.Farmacias"
-    android:orientation="vertical">
+    android:background="@color/profile_bar"
+    android:orientation="vertical"
+    tools:context=".Farmacias.Farmacias">
+
+    <RelativeLayout
+        android:id="@+id/farmacia_header"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/farmacias_bg_gradient">
+
+        <ImageButton
+            android:id="@+id/farmacia_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/icon_left_arrow" />
+
+        <TextView
+            android:id="@+id/calendar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginLeft="84dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/farmacia_back"
+            android:layout_toRightOf="@+id/farmacia_back"
+            android:text="Farmacias"
+            android:textColor="@color/profile_name"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_farmacias"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

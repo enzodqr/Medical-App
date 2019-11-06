@@ -4,6 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +26,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 app:srcCompat="@drawable/farmacia" />
 
             <LinearLayout
@@ -36,17 +42,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
                     android:layout_marginRight="10dp"
-                    android:text="Nombre Farmacia" />
+                    android:gravity="center"
+                    android:text="Nombre Farmacia"
+                    android:textColor="#9E6001"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:id="@+id/direcciónFarmacia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="Dirección" />
+                    android:gravity="center"
+                    android:text="Dirección"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </LinearLayout>

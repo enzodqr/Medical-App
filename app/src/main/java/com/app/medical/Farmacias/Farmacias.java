@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.app.medical.Menu.Menu_Activity;
 import com.app.medical.R;
 
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ public class Farmacias extends AppCompatActivity {
 
     ArrayList<Farmacia_Model>listDatos;
     RecyclerView recycler;
+    ImageButton btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,14 @@ public class Farmacias extends AppCompatActivity {
 
         Adapter_Farmacia adapter = new Adapter_Farmacia(listDatos);
         recycler.setAdapter(adapter);
+
+        btn_back = (ImageButton) findViewById(R.id.farmacia_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Farmacias.this, Menu_Activity.class));
+            }
+        });
     }
 
     private void llenarDatos() {
