@@ -73,7 +73,6 @@ public class AddMedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel_med();
-
             }
         });
 

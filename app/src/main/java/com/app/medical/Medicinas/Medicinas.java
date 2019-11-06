@@ -82,7 +82,7 @@ public class Medicinas extends AppCompatActivity {
             }
         });
     }
-    
+
     private void go_to_medicine(){
         Intent intent = new Intent(getApplicationContext(), MedicineInfo.class);
         startActivity(intent);
@@ -161,7 +161,8 @@ public class Medicinas extends AppCompatActivity {
                     List<String> list = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         list.add(document.getId());
-                        listDatos.add(new Medicina_model(document.get("medicina").toString(),document.get("dosis").toString(),R.drawable.baseline_account_circle_white_18dp));
+                        listDatos.add(new Medicina_model(document.get("medicina").toString(),document.get("dosis").toString(),
+                                image(document.get(DB_Utilities.MED_DOSIS).toString())));
 
                     }
                     adapter = new Medicina_Adapter(listDatos);
@@ -181,6 +182,24 @@ public class Medicinas extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    private int image (String presentacion){
+        switch (presentacion){
+            case "Pastilla":
+                return R.drawable.pills;
+            case "Cápsula":
+                return R.drawable.pills;
+            case "Solución":
+                return R.drawable.jarabe;
+            case "Inyectable":
+                return R.drawable.inyeccion;
+            case "Crema":
+                return R.drawable.inyeccion;
+            default:
+                return R.drawable.pills;
+        }
     }
 
 
