@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/add_medicine_back"
             android:layout_toRightOf="@+id/add_medicine_back"
-            android:text="Confirmar"
+            android:text="Nueva Medicina"
             android:textColor="@color/profile_name"
             android:textSize="25sp"
             android:textStyle="bold" />
