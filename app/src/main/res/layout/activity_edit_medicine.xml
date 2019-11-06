@@ -199,26 +199,34 @@
             android:id="@+id/btn_edit_med_cancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:background="@drawable/medicina_gradient"
             android:text="@string/str_cancelar"
-            android:textStyle="bold"
-            android:textColor="@color/medicine_btn_color"
-            android:background="@drawable/buttom" />
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_edit_med_guardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/medicina_gradient"
+            android:text="@string/str_guardar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/medicine_line"/>
-        <Button
-            android:id="@+id/btn_edit_med_guardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/str_guardar"
-            android:textStyle="bold"
-            android:textColor="@color/medicine_btn_color"
-            android:background="@android:color/transparent"/>
 
 
 
