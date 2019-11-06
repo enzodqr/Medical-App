@@ -14,9 +14,10 @@
             android:id="@+id/profile_op_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Tittle"
             android:textColor="@color/profile_txt_header"
             android:textSize="13sp"
-            android:text="Tittle"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/profile_op_data"

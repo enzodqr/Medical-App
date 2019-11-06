@@ -83,8 +83,6 @@ public class Medicinas extends AppCompatActivity {
         });
     }
 
-<<<<<<< HEAD
-=======
     private void rellenarLista() {
         listDatos.add(new Medicina_model("Inyección","Dosis 1",R.drawable.inyeccion));
         listDatos.add(new Medicina_model("Jarabe","Dosis 2",R.drawable.jarabe));
@@ -96,7 +94,6 @@ public class Medicinas extends AppCompatActivity {
         listDatos.add(new Medicina_model("Jarabe","Dosis 2",R.drawable.jarabe));
         listDatos.add(new Medicina_model("Pastillas","Dosis 3",R.drawable.pills));
     }
->>>>>>> 29087cc0c32febfd63a69fe4499327a528bfdba5
 
     private void go_to_medicine(){
         Intent intent = new Intent(getApplicationContext(), MedicineInfo.class);
