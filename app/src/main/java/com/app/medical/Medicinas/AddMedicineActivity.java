@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.app.medical.DB_Utilities.DB_Utilities;
 import com.app.medical.Menu.Menu_Activity;
@@ -58,6 +59,8 @@ public class AddMedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 save_med();
+                Toast.makeText(AddMedicineActivity.this, "Agregado Correctamente", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AddMedicineActivity.this, Medicinas.class));
             }
         });
 
