@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.app.medical.Agenda.Agenda;
 import com.app.medical.Alertas.NuevaAlarma;
+import com.app.medical.Farmacias.Farmacias;
 import com.app.medical.Medicinas.Medicinas;
 import com.app.medical.Profile.Profile_Activity;
 import com.app.medical.Profile.Profile_Model;
@@ -63,6 +64,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
     Button sign_out_btn;
     Button medicina_btn;
     Button alertas_btn;
+    Button farmacia_btn;
 
     /* Alarm (Me cago en lo ruidoso que es) */
     MediaPlayer mediaPlayer; //para la reproducción de sonidos
@@ -94,7 +96,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         agenda_btn = findViewById(R.id.btn_agenda);
         medicina_btn = findViewById(R.id.btn_medicinas);
         alertas_btn = findViewById(R.id.btn_alertas);
-
+        farmacia_btn = findViewById(R.id.btn_farmacias);
         sos_btn = findViewById(R.id.btn_sos);
 
 
@@ -105,6 +107,7 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
         sos_btn.setOnClickListener(this);
         medicina_btn.setOnClickListener(this);
         alertas_btn.setOnClickListener(this);
+        farmacia_btn.setOnClickListener(this);
 
 
         mediaPlayer = MediaPlayer.create(Menu_Activity.this, R.raw.alarma);
@@ -149,6 +152,8 @@ public class Menu_Activity extends AppCompatActivity  implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), Medicinas.class));
         } else if(id == R.id.btn_alertas) {
             startActivity(new Intent(getApplicationContext(), NuevaAlarma.class));
+        } else if(id == R.id.btn_farmacias){
+            startActivity(new Intent(getApplicationContext(), Farmacias.class));
         } else if (id == R.id.btn_sos){
 
             if(ActivityCompat.checkSelfPermission(Menu_Activity.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED
