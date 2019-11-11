@@ -68,7 +68,7 @@ public class Agenda extends AppCompatActivity
     }
 
     public void onClick(View view){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+       /* FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         switch (view.getId()){
             case R.id.calendar_btn:
@@ -79,7 +79,7 @@ public class Agenda extends AppCompatActivity
                 break;
         }
 
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 
     private void return_to_menu(){
